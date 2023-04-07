@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: cplxreal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Transforms">
+                    <i class="fas fa-list-alt"></i>
+                    Transforms
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>cplxreal</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [<var>zc</var>, <var>zr</var>] = <b>cplxreal</b><i> (<var>z</var>)</i></dt>
+<dt><u>Function File:</u> [<var>zc</var>, <var>zr</var>] = <b>cplxreal</b><i> (<var>z</var>, <var>tol</var>)</i></dt>
+<dt><u>Function File:</u> [<var>zc</var>, <var>zr</var>] = <b>cplxreal</b><i> (<var>z</var>, <var>tol</var>, <var>dim</var>)</i></dt>
+</dl>
+<p> Sort the numbers <var>z</var> into complex-conjugate-valued and real-valued
+ elements.  The positive imaginary complex numbers of each complex conjugate
+ pair are returned in <var>zc</var> and the real numbers are returned in <var>zr</var>.
+</p>
+<div class="ms-5">
+<p> <var>tol</var> is a weighting factor in the range [0, 1) which determines the
+ tolerance of the matching.  The default value is <code>100 * eps</code> and the
+ resulting tolerance for a given complex pair is
+ <code><var>tol</var> * abs (<var>z</var>(i)))</code>.
+</p>
+<p> By default the complex pairs are sorted along the first non-singleton
+ dimension of <var>z</var>.  If <var>dim</var> is specified, then the complex pairs are
+ sorted along this dimension.
+</p>
+<p> Signal an error if some complex numbers could not be paired.  Signal an
+ error if all complex numbers are not exact conjugates (to within <var>tol</var>).
+ Note that there is no defined order for pairs with identical real parts but
+ differing imaginary parts.
+ <strong>See also: </strong>
+cplxpair
+</p>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

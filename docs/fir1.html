@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: fir1</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#FIR Filter Design">
+                    <i class="fas fa-list-alt"></i>
+                    FIR Filter Design
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>fir1</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> <var>b</var> = <b>fir1</b><i> (<var>n</var>, <var>w</var>)</i></dt>
+<dt><u>Function File:</u> <var>b</var> = <b>fir1</b><i> (<var>n</var>, <var>w</var>, <var>type</var>)</i></dt>
+<dt><u>Function File:</u> <var>b</var> = <b>fir1</b><i> (<var>n</var>, <var>w</var>, <var>type</var>, <var>window</var>)</i></dt>
+<dt><u>Function File:</u> <var>b</var> = <b>fir1</b><i> (<var>n</var>, <var>w</var>, <var>type</var>, <var>window</var>, <var>noscale</var>)</i></dt>
+</dl>
+
+<p> Produce an order <var>n</var> FIR filter with the given frequency cutoff <var>w</var>,
+ returning the <var>n</var>+1 filter coefficients in <var>b</var>.  If <var>w</var> is a
+ scalar, it specifies the frequency cutoff for a lowpass or highpass filter.
+ If <var>w</var> is a two-element vector, the two values specify the edges of a
+ bandpass or bandstop filter.  If <var>w</var> is an N-element vector, each
+ value specifies a band edge of a multiband pass/stop filter.
+</p>
+<div class="ms-5">
+<p> The filter <var>type</var> can be specified with one of the following strings:
+ &quot;low&quot;, &quot;high&quot;, &quot;stop&quot;, &quot;pass&quot;, &quot;bandpass&quot;, &quot;DC-0&quot;, or &quot;DC-1&quot;.  The default
+ is &quot;low&quot; is <var>w</var> is a scalar, &quot;pass&quot; if <var>w</var> is a pair, or &quot;DC-0&quot; if
+ <var>w</var> is a vector with more than 2 elements.
+</p>
+<p> An optional shaping <var>window</var> can be given as a vector with length
+ <var>n</var>+1.  If not specified, a Hamming window of length <var>n</var>+1 is used.
+</p>
+<p> With the option &quot;noscale&quot;, the filter coefficients are not normalized. The
+ default is to normalize the filter such that the magnitude response of the
+ center of the first passband is 1.
+</p>
+<p> To apply the filter, use the return vector <var>b</var> with the <code>filter</code>
+ function, for example <code>y = filter (b, 1, x)</code>.
+</p>
+<p> Examples:
+ </p><table><tr><td>&nbsp;</td><td><pre class="example"> freqz (fir1 (40, 0.3));
+ freqz (fir1 (15, [0.2, 0.5], &quot;stop&quot;));  # note the zero-crossing at 0.1
+ freqz (fir1 (15, [0.2, 0.5], &quot;stop&quot;, &quot;noscale&quot;));
+ </pre></td></tr></table>
+<p> <strong>See also: </strong>
+filter, 
+  <a href="fir2.html">fir2</a>
+</p>
+</div>
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ freqz(fir1(40,0.3));
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/fir1_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 2
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ freqz(fir1(15,[0.2, 0.5], 'stop'));  # note the zero-crossing at 0.1
+
+warning: n must be even for highpass and bandstop filters. Incrementing.
+warning: called from
+    fir1 at line 102 column 5
+    build_DEMOS at line 94 column 11
+    function_texi2html at line 286 column 14
+    package_texi2html at line 278 column 7
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/fir1_201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 3
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ freqz(fir1(15,[0.2, 0.5], 'stop', 'noscale'));
+
+warning: n must be even for highpass and bandstop filters. Incrementing.
+warning: called from
+    fir1 at line 102 column 5
+    build_DEMOS at line 94 column 11
+    function_texi2html at line 286 column 14
+    package_texi2html at line 278 column 7
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/fir1_301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

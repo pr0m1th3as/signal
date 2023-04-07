@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: sigmoid_train</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Signals">
+                    <i class="fas fa-list-alt"></i>
+                    Signals
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>sigmoid_train</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [<var>y</var> <var>s</var>] = <b>sigmoid_train</b><i> (<var>t</var>, <var>ranges</var>, <var>rc</var>)</i></dt>
+</dl>
+
+<p> Evaluate a train of sigmoid functions at <var>t</var>.
+</p>
+<div class="ms-5">
+<p> The number and duration of each sigmoid is determined from <var>ranges</var>.
+ Each row of <var>ranges</var> represents a real interval, e.g. if sigmoid
+ <code>i</code> starts at <code>t=0.1</code> and ends at <code>t=0.5</code>, then
+ <code><var>ranges</var>(i,:) = [0.1 0.5]</code>.
+ The input <var>rc</var> is an array that defines the rising and falling time
+ constants of each sigmoid.  Its size must equal the size of <var>ranges</var>.
+</p>
+<p> The individual sigmoids are returned in <var>s</var>. The combined sigmoid train
+ is returned in the vector <var>y</var> of length equal to <var>t</var>, and such that
+ <code>Y = max (S)</code>.
+</p>
+<p> Run <code>demo sigmoid_train</code> to some examples of the use of this function.
+</p>
+
+</div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ # Vectorized
+ t     = linspace (0, 2, 500);
+ range = [0.1 0.4; 0.6 0.8; 1 2];
+ rc    = [1e-2 1e-3; 1e-3 2e-2; 2e-2 1e-2];
+ y     = sigmoid_train (t, range, rc);
+ for i=1:3
+     patch ([range(i,[2 2]) range(i,[1 1])], [0 1 1 0],...
+               'facecolor', [1 0.8 0.8],'edgecolor','none');
+ endfor
+ hold on; plot (t, y, 'b;Sigmoid train;','linewidth',2); hold off
+ xlabel('time'); ylabel('S(t)')
+ title ('Vectorized use of sigmoid train')
+ axis tight
+ #-------------------------------------------------------------------------
+ # The colored regions show the limits defined in range.
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/sigmoid_train_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 2
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ # Varaible amplitude
+ t     = linspace (0, 2, 500);
+ range = [0.1 0.4; 0.6 0.8; 1 2];
+ rc    = [1e-2 1e-3; 1e-3 2e-2; 2e-2 1e-2];
+ amp   = [4 2 3];
+ [~, S] = sigmoid_train (t, range, rc);
+ y = amp * S;
+ h = plot (t, y, '-b', t, S, '-');
+ set (h(1), "linewidth", 2);
+ legend (h(1:2), {"Sigmoid train", "Components"});
+ xlabel('time'); ylabel('signal')
+ title ('Varying amplitude sigmoid train')
+ axis tight
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/sigmoid_train_201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 3
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ # On demand
+ t = linspace(0,2,200).';
+ ran = [0.5 1; 1.5 1.7];
+ rc = 3e-2;
+ dxdt = @(x_,t_) [ x_(2); sigmoid_train(t_, ran, rc) ];
+ y = lsode(dxdt,[0 0],t);
+ for i=1:2
+     patch ([ran(i,[2 2]) ran(i,[1 1])], [0 1 1 0],...
+               'facecolor', [1 0.8 0.8],'edgecolor','none');
+ endfor
+ hold on; plot (t, y(:,2), 'b;Speed;','linewidth',2); hold off
+ xlabel('time'); ylabel('V(t)')
+ title ('On demand use of sigmoid train')
+ axis tight
+ #-------------------------------------------------------------------------
+ # The colored regions show periods when the force is active.
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/sigmoid_train_301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

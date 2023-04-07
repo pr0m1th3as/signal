@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: invfreqz</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#System Identification">
+                    <i class="fas fa-list-alt"></i>
+                    System Identification
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>invfreqz</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [B,A] = <b>invfreqz</b><i>(H,F,nB,nA)</i></dt>
+<dt><u>:</u> [B,A] = <b>invfreqz</b><i>(H,F,nB,nA,W)</i></dt>
+<dt><u>:</u> [B,A] = <b>invfreqz</b><i>(H,F,nB,nA,W,iter,tol,'trace')</i></dt>
+</dl>
+<p> Fit filter B(z)/A(z)to the complex frequency response H at frequency
+ points F.
+</p>
+<div class="ms-5">
+<p> A and B are real polynomial coefficients of order nA and nB.
+ Optionally, the fit-errors can be weighted vs frequency according to
+ the weights W.
+</p>
+<p> Note: all the guts are in invfreq.m
+</p>
+<p> H: desired complex frequency response
+</p>
+<p> F: normalized frequency (0 to pi) (must be same length as H)
+</p>
+<p> nA: order of the denominator polynomial A
+</p>
+<p> nB: order of the numerator polynomial B
+</p>
+<p> W: vector of weights (must be same length as F)
+</p>
+<p> Example:
+ </p><table><tr><td>&nbsp;</td><td><pre class="example">     [B,A] = butter(4,1/4);
+     [H,F] = freqz(B,A);
+     [Bh,Ah] = invfreq(H,F,4,4);
+     Hh = freqz(Bh,Ah);
+     disp(sprintf('||frequency response error|| = %f',norm(H-Hh)));
+ </pre></td></tr></table>
+
+</div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ order = 9;  # order of test filter
+ # going to 10 or above leads to numerical instabilities and large errors
+ fc = 1/2;   # sampling rate / 4
+ n = 128;    # frequency grid size
+ [B0, A0] = butter(order, fc);
+ [H0, w] = freqz(B0, A0, n);
+ Nn = (randn(size(w))+j*randn(size(w)))/sqrt(2);
+ [Bh, Ah, Sig0] = invfreqz(H0, w, order, order);
+ [Hh, wh] = freqz(Bh, Ah, n);
+ [BLS, ALS, SigLS] = invfreqz(H0+1e-5*Nn, w, order, order, [], [], [], [], "method", "LS");
+ HLS = freqz(BLS, ALS, n);
+ [BTLS, ATLS, SigTLS] = invfreqz(H0+1e-5*Nn, w, order, order, [], [], [], [], "method", "TLS");
+ HTLS = freqz(BTLS, ATLS, n);
+ [BMLS, AMLS, SigMLS] = invfreqz(H0+1e-5*Nn, w, order, order, [], [], [], [], "method", "QR");
+ HMLS = freqz(BMLS, AMLS, n);
+ plot(w,[abs(H0) abs(Hh)])
+ xlabel("Frequency (rad/sample)");
+ ylabel("Magnitude");
+ legend('Original','Measured');
+ err = norm(H0-Hh);
+ disp(sprintf('L2 norm of frequency response error = %f',err));
+
+L2 norm of frequency response error = 0.000000
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/invfreqz_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

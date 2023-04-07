@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: decimate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Sample Rate Change">
+                    <i class="fas fa-list-alt"></i>
+                    Sample Rate Change
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>decimate</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> <var>y</var> = <b>decimate</b><i> (<var>x</var>, <var>q</var>)</i></dt>
+<dt><u>Function File:</u> <var>y</var> = <b>decimate</b><i> (<var>x</var>, <var>q</var>, <var>n</var>)</i></dt>
+<dt><u>Function File:</u> <var>y</var> = <b>decimate</b><i> (&hellip;, &quot;fir&quot;)</i></dt>
+</dl>
+
+<p> Downsample the signal <var>x</var> by a reduction factor of <var>q</var>. A lowpass
+ antialiasing filter is applied to the signal prior to reducing the input
+ sequence. By default, an order <var>n</var> Chebyshev type I filter is used.
+ If <var>n</var> is not specified, the default is 8.
+</p>
+<div class="ms-5">
+<p> If the optional argument <code>&quot;fir&quot;</code> is given, an order <var>n</var> FIR filter
+ is used, with a default order of 30 if <var>n</var> is not given.
+</p>
+<p> Note that <var>q</var> must be an integer for this rate change method.
+</p>
+<p> Example:
+ </p><table><tr><td>&nbsp;</td><td><pre class="example"> ## Generate a signal that starts away from zero, is slowly varying
+ ## at the start and quickly varying at the end, decimate and plot.
+ ## Since it starts away from zero, you will see the boundary
+ ## effects of the antialiasing filter clearly.  Next you will see
+ ## how it follows the curve nicely in the slowly varying early
+ ## part of the signal, but averages the curve in the quickly
+ ## varying late part of the signal.
+ t = 0:0.01:2;
+ x = chirp (t, 2, .5, 10, &quot;quadratic&quot;) + sin (2*pi*t*0.4);
+ y = decimate (x, 4);
+ stem (t(1:121) * 1000, x(1:121), &quot;-g;Original;&quot;); hold on; # original
+ stem (t(1:4:121) * 1000, y(1:31), &quot;-r;Decimated;&quot;); hold off; # decimated
+ </pre></td></tr></table>
+
+</div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ t=0:0.01:2; x=chirp(t,2,.5,10,'quadratic')+sin(2*pi*t*0.4);
+ y = decimate(x,4);   # factor of 4 decimation
+ stem(t(1:121)*1000,x(1:121),"-g;Original;"); hold on; # plot original
+ stem(t(1:4:121)*1000,y(1:31),"-r;Decimated;"); hold off; # decimated
+ %------------------------------------------------------------------
+ % The signal to decimate starts away from zero, is slowly varying
+ % at the start and quickly varying at the end, decimate and plot.
+ % Since it starts away from zero, you will see the boundary
+ % effects of the antialiasing filter clearly.  You will also see
+ % how it follows the curve nicely in the slowly varying early
+ % part of the signal, but averages the curve in the quickly
+ % varying late part of the signal.
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/decimate_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: butter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#IIR Filter Design">
+                    <i class="fas fa-list-alt"></i>
+                    IIR Filter Design
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>butter</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [<var>b</var>, <var>a</var>] = <b>butter</b><i> (<var>n</var>, <var>wc</var>)</i></dt>
+<dt><u>Function File:</u> [<var>b</var>, <var>a</var>] = <b>butter</b><i> (<var>n</var>, <var>wc</var>, <var>filter_type</var>)</i></dt>
+<dt><u>Function File:</u> [<var>z</var>, <var>p</var>, <var>g</var>] = <b>butter</b><i> (&hellip;)</i></dt>
+<dt><u>Function File:</u> [<var>a</var>, <var>b</var>, <var>c</var>, <var>d</var>] = <b>butter</b><i> (&hellip;)</i></dt>
+<dt><u>Function File:</u> [&hellip;] = <b>butter</b><i> (&hellip;, &quot;s&quot;)</i></dt>
+</dl>
+<p> Generate a Butterworth filter.
+ Default is a discrete space (Z) filter.
+</p>
+<div class="ms-5">
+<p> The cutoff frequency, <var>wc</var> should be specified in radians for
+ analog filters.  For digital filters, it must be a value between zero
+ and one.  For bandpass filters, <var>wc</var> is a two-element vector
+ with <code>w(1) &lt; w(2)</code>.
+</p>
+<p> The filter type must be one of <code>&quot;low&quot;</code>, <code>&quot;high&quot;</code>,
+ <code>&quot;bandpass&quot;</code>, or <code>&quot;stop&quot;</code>.  The default is <code>&quot;low&quot;</code>
+ if <var>wc</var> is a scalar and <code>&quot;bandpass&quot;</code> if <var>wc</var> is a
+ two-element vector.
+</p>
+<p> If the final input argument is <code>&quot;s&quot;</code> design an analog Laplace
+ space filter.
+</p>
+<p> Low pass filter with cutoff <code>pi*Wc</code> radians:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> [b, a] = butter (n, Wc)
+ </pre></td></tr></table>
+
+<p> High pass filter with cutoff <code>pi*Wc</code> radians:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> [b, a] = butter (n, Wc, &quot;high&quot;)
+ </pre></td></tr></table>
+
+<p> Band pass filter with edges <code>pi*Wl</code> and <code>pi*Wh</code> radians:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> [b, a] = butter (n, [Wl, Wh])
+ </pre></td></tr></table>
+
+<p> Band reject filter with edges <code>pi*Wl</code> and <code>pi*Wh</code> radians:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> [b, a] = butter (n, [Wl, Wh], &quot;stop&quot;)
+ </pre></td></tr></table>
+
+<p> Return filter as zero-pole-gain rather than coefficients of the
+ numerator and denominator polynomials:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> [z, p, g] = butter (&hellip;)
+ </pre></td></tr></table>
+
+<p> Return a Laplace space filter, <var>Wc</var> can be larger than 1:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> [&hellip;] = butter (&hellip;, &quot;s&quot;)
+ </pre></td></tr></table>
+
+<p> Return state-space matrices:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> [a, b, c, d] = butter (&hellip;)
+ </pre></td></tr></table>
+
+<p> References:
+</p>
+<p> Proakis &amp; Manolakis (1992). Digital Signal Processing. New York:
+ Macmillan Publishing Company.
+ </p>
+</div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ sf = 800; sf2 = sf/2;
+ data=[[1;zeros(sf-1,1)],sinetone(25,sf,1,1),sinetone(50,sf,1,1),sinetone(100,sf,1,1)];
+ [b,a]=butter ( 1, 50 / sf2 );
+ filtered = filter(b,a,data);
+
+ clf
+ subplot ( columns ( filtered ), 1, 1)
+ plot(filtered(:,1),";Impulse response;")
+ subplot ( columns ( filtered ), 1, 2 )
+ plot(filtered(:,2),";25Hz response;")
+ subplot ( columns ( filtered ), 1, 3 )
+ plot(filtered(:,3),";50Hz response;")
+ subplot ( columns ( filtered ), 1, 4 )
+ plot(filtered(:,4),";100Hz response;")
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/butter_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

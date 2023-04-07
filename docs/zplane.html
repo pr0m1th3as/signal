@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: zplane</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Filter Analysis">
+                    <i class="fas fa-list-alt"></i>
+                    Filter Analysis
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>zplane</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> <b>zplane</b><i> (<var>z</var>, <var>p</var>)</i></dt>
+<dt><u>Function File:</u> <b>zplane</b><i> (<var>b</var>, <var>a</var>)</i></dt>
+</dl>
+<p> Plot the poles and zeros on a complex plane.  If the arguments are column
+ vectors <var>z</var> and <var>p</var>, the complex zeros <var>z</var> and poles <var>p</var>
+ are displayed. If the arguments are row vectors <var>b</var> and <var>a</var>, the
+ zeros and poles of the transfer function represented by these filter
+ coefficients are displayed.
+</p>
+<div class="ms-5">
+<p> If <var>z</var> and <var>p</var> are matrices, the columns are distinct sets of zeros
+ and poles and are displayed together in distinct colors.
+</p>
+<p> Note that due to the nature of the <code>roots</code> function, poles and zeros
+ may be displayed as occurring around a circle rather than at a single
+ point.
+</p>
+<p> The transfer function is
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> </pre><pre class="example">        B(z)   b0 + b1 z^(-1) + b2 z^(-2) + ... + bM z^(-M)
+ H(z) = ---- = --------------------------------------------
+        A(z)   a0 + a1 z^(-1) + a2 z^(-2) + ... + aN z^(-N)
+
+               b0          (z - z1) (z - z2) ... (z - zM)
+             = -- z^(-M+N) ------------------------------
+               a0          (z - p1) (z - p2) ... (z - pN)
+ </pre><pre class="example"> </pre></td></tr></table>
+
+<p> If called with only one argument, the poles <var>p</var> defaults to an empty
+ vector, and the denominator coefficient vector <var>a</var> defaults to 1.
+ </p>
+</div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ ## construct target system:
+ ##   symmetric zero-pole pairs at r*exp(iw),r*exp(-iw)
+ ##   zero-pole singletons at s
+ pw = [0.2, 0.4, 0.45, 0.95];   # pw = [0.4];
+ pr = [0.98, 0.98, 0.98, 0.96]; # pr = [0.85];
+ ps = [];
+ zw = [0.3];  # zw=[];
+ zr = [0.95]; # zr=[];
+ zs = [];
+
+ ## system function for target system
+ p = [[pr, pr] .* exp(1i * pi * [pw, -pw]), ps]';
+ z = [[zr, zr] .* exp(1i * pi * [zw, -zw]), zs]';
+ M = length(z);
+ N = length(p);
+ sys_a = [zeros(1, M-N), real(poly(p))];
+ sys_b = [zeros(1, N-M), real(poly(z))];
+
+ disp ("The first two graphs should be identical, with poles at (r,w) =");
+ disp (sprintf(" (%.2f,%.2f)", [pr; pw]));
+ disp ("and zeros at (r,w) =");
+ disp (sprintf(" (%.2f,%.2f)", [zr; zw]));
+ disp ("with reflection across the horizontal axis");
+
+ subplot (2, 3, 1);
+ zplane (sys_b, sys_a);
+ title ("Transfer function form");
+
+ subplot (2, 3, 2);
+ zplane (z, p);
+ title ("Zero pole form");
+
+ subplot (2, 3, 3);
+ zplane (z);
+ title ("Zeros only, p=[]");
+
+ subplot (2, 3, 4);
+ zplane (sys_b);
+ title ("Numerator only, a=1");
+
+ disp ("The matrix plot has 2 sets of points, one inside the other");
+ subplot (2, 3, 5);
+ zplane ([z, 0.7*z], [p, 0.7*p]);
+ title ("Matrix of zeros and poles");
+
+The first two graphs should be identical, with poles at (r,w) =
+ (0.98,0.20) (0.98,0.40) (0.98,0.45) (0.96,0.95)
+and zeros at (r,w) =
+ (0.95,0.30)
+with reflection across the horizontal axis
+The matrix plot has 2 sets of points, one inside the other
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/zplane_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

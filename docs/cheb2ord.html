@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: cheb2ord</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#IIR Filter Design">
+                    <i class="fas fa-list-alt"></i>
+                    IIR Filter Design
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>cheb2ord</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> <var>n</var> = <b>cheb2ord</b><i> (<var>wp</var>, <var>ws</var>, <var>rp</var>, <var>rs</var>)</i></dt>
+<dt><u>Function File:</u> <var>n</var> = <b>cheb2ord</b><i> ([<var>wp1</var>, <var>wp2</var>], [<var>ws1</var>, <var>ws2</var>], <var>rp</var>, <var>rs</var>)</i></dt>
+<dt><u>Function File:</u> <var>n</var> = <b>cheb2ord</b><i> ([<var>wp1</var>, <var>wp2</var>], [<var>ws1</var>, <var>ws2</var>], <var>rp</var>, <var>rs</var>, &quot;s&quot;)</i></dt>
+<dt><u>Function File:</u> [<var>n</var>, <var>wc_s</var>] = <b>cheb2ord</b><i> (&hellip;)</i></dt>
+<dt><u>Function File:</u> [<var>n</var>, <var>wc_s</var>, <var>wc_p</var>] = <b>cheb2ord</b><i> (&hellip;)</i></dt>
+</dl>
+<p> Compute the minimum filter order of a Chebyshev type II filter with the
+ desired response characteristics. The filter frequency band edges are
+ specified by the passband frequency <var>wp</var> and stopband frequency <var>ws</var>.
+ Frequencies are normalized to the Nyquist frequency in the range [0,1].
+ <var>rp</var> is the allowable passband ripple measured in decibels, and <var>rs</var>
+ is the minimum attenuation in the stop band, also in decibels.
+</p>
+<div class="ms-5">
+<p> The output arguments <var>n</var> and <var>wc_p</var> (or <var>n</var> and <var>wc_s</var>) can
+ be given as inputs to <code>cheby2</code>.
+ Using <var>wc_p</var> makes the filter characteristic touch at least one pass band
+ corner and using <var>wc_s</var> makes the characteristic touch at least one
+ stop band corner.
+</p>
+<p> If <var>wp</var> and <var>ws</var> are scalars, then <var>wp</var> is the passband cutoff
+ frequency and <var>ws</var> is the stopband edge frequency.  If <var>ws</var> is
+ greater than <var>wp</var>, the filter is a low-pass filter.  If <var>wp</var> is
+ greater than <var>ws</var>, the filter is a high-pass filter.
+</p>
+<p> If <var>wp</var> and <var>ws</var> are vectors of length 2, then <var>wp</var> defines the
+ passband interval and <var>ws</var> defines the stopband interval.  If <var>wp</var>
+ is contained within <var>ws</var> (<var>ws1</var> &lt; <var>wp1</var> &lt; <var>wp2</var> &lt; <var>ws2</var>),
+ the filter is a band-pass filter.  If <var>ws</var> is contained within <var>wp</var>
+ (<var>wp1</var> &lt; <var>ws1</var> &lt; <var>ws2</var> &lt; <var>wp2</var>), the filter is a band-stop
+ or band-reject filter.
+</p>
+<p> If the optional argument <code>&quot;s&quot;</code> is given, the minimum order for an analog
+ elliptic filter is computed.  All frequencies <var>wp</var> and <var>ws</var> are
+ specified in radians per second.
+ <strong>See also: </strong>
+  <a href="buttord.html">buttord</a>, 
+  <a href="cheb1ord.html">cheb1ord</a>, 
+  <a href="cheby2.html">cheby2</a>, 
+  <a href="ellipord.html">ellipord</a>
+</p>
+</div>
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fpass = 4000;
+ fstop = 10988;
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_p);
+ SYS = tf (b, a, 1 / fs);
+ f = (0:fs/2)';
+ W = f * (2 * pi / fs);
+ [H, P] = bode (SYS, 2 * pi * f);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev low-pass Typ II : matching pass band");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_lp_pass_x = [f(2)  , fpass(1), fpass(1)];
+ outline_lp_pass_y = [-Rpass, -Rpass  , -80];
+ outline_lp_stop_x = [f(2)  , fstop(1), fstop(1), max(f)];
+ outline_lp_stop_y = [0     , 0       , -Rstop  , -Rstop];
+ hold on;
+ plot (outline_lp_pass_x, outline_lp_pass_y, "m");
+ plot (outline_lp_stop_x, outline_lp_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p = 0.3718
+Wn_s = 0.4983
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 2
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fpass = 4000;
+ fstop = 10988;
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_s);
+ SYS = tf (b, a, 1 / fs);
+ f = (0:fs/2)';
+ W = f * (2 * pi / fs);
+ [H, P] = bode (SYS, 2 * pi * f);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev low-pass Typ II : matching stop band");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_lp_pass_x = [f(2)  , fpass(1), fpass(1)];
+ outline_lp_pass_y = [-Rpass, -Rpass  , -80];
+ outline_lp_stop_x = [f(2)  , fstop(1), fstop(1), max(f)];
+ outline_lp_stop_y = [0     , 0       , -Rstop  , -Rstop];
+ hold on;
+ plot (outline_lp_pass_x, outline_lp_pass_y, "m");
+ plot (outline_lp_stop_x, outline_lp_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p = 0.3718
+Wn_s = 0.4983
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 3
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fstop = 4000;
+ fpass = 10988;
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_p, "high");
+ f = (0:fs/2)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev high-pass Typ II : matching pass band");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_hp_pass_x = [fpass(1), fpass(1), max(f)];
+ outline_hp_pass_y = [-80     , -Rpass  , -Rpass];
+ outline_hp_stop_x = [min(f)  , fstop(1), fstop(1), max(f)];
+ outline_hp_stop_y = [-Rstop  , -Rstop  , 0       , 0     ];
+ hold on;
+ plot (outline_hp_pass_x, outline_hp_pass_y, "m");
+ plot (outline_hp_stop_x, outline_hp_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p = 0.2644
+Wn_s = 0.1814
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 4
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fstop = 4000;
+ fpass = 10988;
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_s, "high");
+ f = (0:fs/2)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev high-pass Typ II : matching stop band");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_hp_pass_x = [fpass(1), fpass(1), max(f)];
+ outline_hp_pass_y = [-80     , -Rpass  , -Rpass];
+ outline_hp_stop_x = [min(f)  , fstop(1), fstop(1), max(f)];
+ outline_hp_stop_y = [-Rstop  , -Rstop  , 0       , 0     ];
+ hold on;
+ plot (outline_hp_pass_x, outline_hp_pass_y, "m");
+ plot (outline_hp_stop_x, outline_hp_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p = 0.2644
+Wn_s = 0.1814
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_401.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 5
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fpass = [9500 9750];
+ fstop = [8500, 10052];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_p);
+ f = (6000:14000)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev band-pass Typ II : matching pass band, limit on upper freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [min(f)  , fstop(1), fstop(1), fstop(2), ...
+                                                    fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , ...
+                                                    -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m");
+ plot (outline_bp_stop_x, outline_bp_stop_y, "m");
+ grid on;
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   0.4238   0.4493
+
+Wn_s =
+
+   0.4174   0.4559
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_501.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 6
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fpass = [9500 9750];
+ fstop = [8500, 10052];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_s);
+ f = (6000:14000)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev band-pass Typ II : matching stop band, limit on upper freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [min(f)  , fstop(1), fstop(1), fstop(2), ...
+                                                    fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , ...
+                                                    -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m");
+ plot (outline_bp_stop_x, outline_bp_stop_y, "m");
+ grid on;
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   0.4238   0.4493
+
+Wn_s =
+
+   0.4174   0.4559
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_601.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 7
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fpass = [9500 9750];
+ fstop = [9182 12000];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_p);
+ f = (6000:14000)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev band-pass Typ II : matching pass band, limit on lower freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [min(f)  , fstop(1), fstop(1), fstop(2), ...
+                                                    fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , ...
+                                                    -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m");
+ plot (outline_bp_stop_x, outline_bp_stop_y, "m");
+ grid on;
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   0.4238   0.4493
+
+Wn_s =
+
+   0.4164   0.4568
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_701.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 8
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fpass = [9500 9750];
+ fstop = [9182 12000];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_s);
+ f = (6000:14000)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev band-pass Typ II : matching stop band, limit on lower freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [min(f)  , fstop(1), fstop(1), fstop(2), ...
+                                                    fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , ...
+                                                    -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m");
+ plot (outline_bp_stop_x, outline_bp_stop_y, "m");
+ grid on;
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   0.4238   0.4493
+
+Wn_s =
+
+   0.4164   0.4568
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_801.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 9
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fstop = [9875, 10126.5823];
+ fpass = [8500, 10834];
+ Rpass = 0.5;
+ Rstop = 40;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_p, "stop");
+ f = (6000:14000)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ Ampl = abs (H);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev notch Typ II : matching pass band, limit on upper freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_notch_pass_x_a = [min(f)  , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [min(f)  , fstop(1), fstop(1), fstop(2), ...
+                                               fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0, 0 ];
+ hold on;
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m");
+ plot (outline_notch_pass_x_b, outline_notch_pass_y_b, "m");
+ plot (outline_notch_stop_x, outline_notch_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   0.4446   0.4625
+
+Wn_s =
+
+   0.4478   0.4593
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_901.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 10
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fstop = [9875, 10126.5823];
+ fpass = [8500, 10834];
+ Rpass = 0.5;
+ Rstop = 40;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_s, "stop");
+ f = (6000:14000)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ Ampl = abs (H);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev notch Typ II : matching stop band, limit on upper freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_notch_pass_x_a = [min(f)  , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [min(f)  , fstop(1), fstop(1), fstop(2), ...
+                                               fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0, 0 ];
+ hold on;
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m");
+ plot (outline_notch_pass_x_b, outline_notch_pass_y_b, "m");
+ plot (outline_notch_stop_x, outline_notch_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   0.4446   0.4625
+
+Wn_s =
+
+   0.4478   0.4593
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1001.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 11
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fstop = [9875, 10126.5823];
+ fpass = [9182, 12000];
+ Rpass = 0.5;
+ Rstop = 40;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_p, "stop");
+ f = (6000:14000)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ Ampl = abs (H);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev notch Typ II : matching pass band, limit on lower freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_notch_pass_x_a = [min(f)  , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [min(f)  , fstop(1), fstop(1), fstop(2), ...
+                                               fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0, 0 ];
+ hold on;
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m");
+ plot (outline_notch_pass_x_b, outline_notch_pass_y_b, "m");
+ plot (outline_notch_stop_x, outline_notch_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   0.4446   0.4625
+
+Wn_s =
+
+   0.4478   0.4593
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 12
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ fstop = [9875, 10126.5823];
+ fpass = [9182, 12000];
+ Rpass = 0.5;
+ Rstop = 40;
+ Wpass = 2 / fs * fpass;
+ Wstop = 2 / fs * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = cheby2 (n, Rstop, Wn_s, "stop");
+ f = (6000:14000)';
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ Ampl = abs (H);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Digital Chebyshev notch Typ II : matching stop band, limit on lower freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_notch_pass_x_a = [min(f)  , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [min(f)  , fstop(1), fstop(1), fstop(2), ...
+                                               fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0, 0 ];
+ hold on;
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m");
+ plot (outline_notch_pass_x_b, outline_notch_pass_y_b, "m");
+ plot (outline_notch_stop_x, outline_notch_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   0.4446   0.4625
+
+Wn_s =
+
+   0.4478   0.4593
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 13
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = 4000;
+ fstop = 13584;
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_p, "s");
+ f = 1000:10:100000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ semilogx (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev low-pass Typ II : matching pass band");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_lp_pass_x = [f(2)  , fpass(1), fpass(1)];
+ outline_lp_pass_y = [-Rpass, -Rpass  , -80];
+ outline_lp_stop_x = [f(2)  , fstop(1), fstop(1), max(f)];
+ outline_lp_stop_y = [0     , 0       , -Rstop  , -Rstop];
+ hold on;
+ plot (outline_lp_pass_x, outline_lp_pass_y, "m");
+ plot (outline_lp_stop_x, outline_lp_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p = 5.6700e+04
+Wn_s = 8.5351e+04
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 14
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = 4000;
+ fstop = 13584;
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_s, "s");
+ f = 1000:10:100000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ semilogx (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev low-pass Typ II : matching stop band");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_lp_pass_x = [f(2)  , fpass(1), fpass(1)];
+ outline_lp_pass_y = [-Rpass, -Rpass  , -80];
+ outline_lp_stop_x = [f(2)  , fstop(1), fstop(1), max(f)];
+ outline_lp_stop_y = [0     , 0       , -Rstop  , -Rstop];
+ hold on;
+ plot (outline_lp_pass_x, outline_lp_pass_y, "m");
+ plot (outline_lp_stop_x, outline_lp_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p = 5.6700e+04
+Wn_s = 8.5351e+04
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1401.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 15
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = 4000;
+ fpass = 13584;
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_p, "high", "s");
+ f = 1000:10:100000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ semilogx (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev high-pass Typ II : matching pass band");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_hp_pass_x = [fpass(1), fpass(1), max(f)];
+ outline_hp_pass_y = [-80     , -Rpass  , -Rpass];
+ outline_hp_stop_x = [f(2)    , fstop(1), fstop(1), max(f)];
+ outline_hp_stop_y = [-Rstop  , -Rstop  , 0       , 0     ];
+ hold on;
+ plot (outline_hp_pass_x, outline_hp_pass_y, "m");
+ plot (outline_hp_stop_x, outline_hp_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p = 3.7832e+04
+Wn_s = 2.5133e+04
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1501.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 16
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = 4000;
+ fpass = 13584;
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_s, "high", "s");
+ f = 1000:10:100000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ semilogx (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev high-pass Typ II : matching stop band");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_hp_pass_x = [fpass(1), fpass(1), max(f)];
+ outline_hp_pass_y = [-80     , -Rpass  , -Rpass];
+ outline_hp_stop_x = [f(2)    , fstop(1), fstop(1), max(f)];
+ outline_hp_stop_y = [-Rstop  , -Rstop  , 0       , 0     ];
+ hold on;
+ plot (outline_hp_pass_x, outline_hp_pass_y, "m");
+ plot (outline_hp_stop_x, outline_hp_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p = 3.7832e+04
+Wn_s = 2.5133e+04
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1601.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 17
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = [9875, 10126.5823];
+ fstop = [9000, 10437];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_p, "s");
+ f = 6000:14000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev band-pass Typ II : matching pass band, limit on upper freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [f(2)    , fstop(1), fstop(1), fstop(2), ...
+                                                    fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , ...
+                                                    -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m");
+ plot (outline_bp_stop_x, outline_bp_stop_y, "m");
+ grid on;
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   6.1074e+04   6.4640e+04
+
+Wn_s =
+
+   6.0201e+04   6.5578e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1701.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 18
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = [9875, 10126.5823];
+ fstop = [9000, 10437];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_s, "s");
+ f = 6000:14000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev band-pass Typ II : matching stop band, limit on upper freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [f(2)    , fstop(1), fstop(1), fstop(2), ...
+                                                    fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , ...
+                                                    -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m");
+ plot (outline_bp_stop_x, outline_bp_stop_y, "m");
+ grid on;
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   6.1074e+04   6.4640e+04
+
+Wn_s =
+
+   6.0201e+04   6.5578e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1801.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 19
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = [9875, 10126.5823];
+ fstop = [9581, 12000];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_p, "s");
+ f = 6000:14000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev band-pass Typ II : matching pass band, limit on lower freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [f(2)    , fstop(1), fstop(1), fstop(2), ...
+                                                    fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , ...
+                                                    -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m");
+ plot (outline_bp_stop_x, outline_bp_stop_y, "m");
+ grid on;
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   6.1074e+04   6.4640e+04
+
+Wn_s =
+
+   6.0199e+04   6.5580e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_1901.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 20
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = [9875, 10126.5823];
+ fstop = [9581, 12000];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_s, "s");
+ f = 6000:14000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev band-pass Typ II : matching stop band, limit on lower freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [f(2)    , fstop(1), fstop(1), fstop(2), ...
+                                                    fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , ...
+                                                    -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m");
+ plot (outline_bp_stop_x, outline_bp_stop_y, "m");
+ grid on;
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   6.1074e+04   6.4640e+04
+
+Wn_s =
+
+   6.0199e+04   6.5580e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_2001.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 21
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = [9875, 10126.5823];
+ fpass = [9000, 10437];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_p, "stop", "s");
+ f = 6000:14000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev notch Typ II : matching pass band, limit on upper freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_notch_pass_x_a = [f(2)    , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [f(2)    , fstop(1), fstop(1), fstop(2), ...
+                                               fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0, 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m");
+ plot (outline_notch_pass_x_b, outline_notch_pass_y_b, "m");
+ plot (outline_notch_stop_x, outline_notch_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   6.1652e+04   6.4035e+04
+
+Wn_s =
+
+   6.2046e+04   6.3627e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_2101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 22
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = [9875, 10126.5823];
+ fpass = [9000, 10437];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_s, "stop", "s");
+ f = 6000:14000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev notch Typ II : matching stop band, limit on upper freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_notch_pass_x_a = [f(2)    , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [f(2)    , fstop(1), fstop(1), fstop(2), ...
+                                               fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0, 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m");
+ plot (outline_notch_pass_x_b, outline_notch_pass_y_b, "m");
+ plot (outline_notch_stop_x, outline_notch_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   6.1652e+04   6.4035e+04
+
+Wn_s =
+
+   6.2046e+04   6.3627e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_2201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 23
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = [9875, 10126.5823];
+ fpass = [9581 12000];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_p, "stop", "s");
+ f = 6000:14000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev notch Typ II : matching pass band, limit on lower freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_notch_pass_x_a = [f(2)    , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [f(2)    , fstop(1), fstop(1), fstop(2), ...
+                                               fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0, 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m");
+ plot (outline_notch_pass_x_b, outline_notch_pass_y_b, "m");
+ plot (outline_notch_stop_x, outline_notch_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   6.1651e+04   6.4036e+04
+
+Wn_s =
+
+   6.2046e+04   6.3627e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_2301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 24
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = [9875, 10126.5823];
+ fpass = [9581 12000];
+ Rpass = 1;
+ Rstop = 26;
+ Wpass = 2 * pi * fpass;
+ Wstop = 2 * pi * fstop;
+ [n, Wn_p, Wn_s] = cheb2ord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = cheby2 (n, Rstop, Wn_s, "stop", "s");
+ f = 6000:14000;
+ W = 2 * pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ title ("Analog Chebyshev notch Typ II : matching stop band, limit on lower freq");
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ grid on;
+ outline_notch_pass_x_a = [f(2)    , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [f(2)    , fstop(1), fstop(1), fstop(2), ...
+                                               fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0, 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m");
+ plot (outline_notch_pass_x_b, outline_notch_pass_y_b, "m");
+ plot (outline_notch_stop_x, outline_notch_stop_y, "m");
+ ylim ([-80, 0]);
+
+n = 3
+Wn_p =
+
+   6.1651e+04   6.4036e+04
+
+Wn_s =
+
+   6.2046e+04   6.3627e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/cheb2ord_2401.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

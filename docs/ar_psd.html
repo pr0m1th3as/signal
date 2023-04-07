@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: ar_psd</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Power Spectrum Analysis">
+                    <i class="fas fa-list-alt"></i>
+                    Power Spectrum Analysis
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>ar_psd</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> <b>ar_psd</b><i> (<var>a</var>, <var>v</var>)</i></dt>
+<dt><u>Function File:</u> <b>ar_psd</b><i> (<var>a</var>, <var>v</var>, <var>freq</var>)</i></dt>
+<dt><u>Function File:</u> <b>ar_psd</b><i> (<var>a</var>, <var>v</var>, <var>freq</var>, <var>Fs</var>)</i></dt>
+<dt><u>Function File:</u> <b>ar_psd</b><i> (&hellip;, <var>range</var>)</i></dt>
+<dt><u>Function File:</u> <b>ar_psd</b><i> (&hellip;, <var>method</var>)</i></dt>
+<dt><u>Function File:</u> <b>ar_psd</b><i> (&hellip;, <var>plottype</var>)</i></dt>
+<dt><u>Function File:</u> [<var>psd</var>, <var>f_out</var>] = <b>ar_psd</b><i> (&hellip;)</i></dt>
+</dl>
+
+<p> Calculate the power spectrum of the autoregressive model
+</p>
+<div class="ms-5">
+ <table><tr><td>&nbsp;</td><td><pre class="example"> </pre><pre class="example">                        M
+ x(n) = sqrt(v).e(n) + SUM a(k).x(n-k)
+                       k=1
+ </pre><pre class="example"> </pre></td></tr></table>
+
+<p> where <math>&times;(n)</math> is the output of the model and <math>e(n)</math> is white noise.
+ This function is intended for use with
+ <code>[a, v, k] = arburg (x, poles, criterion)</code>
+ which use the Burg (1968) method to calculate a &quot;maximum entropy&quot;
+ autoregressive model of <var>x</var>.
+</p>
+<p> If the <var>freq</var> argument is a vector (of frequencies) the spectrum is
+ calculated using the polynomial method and the <var>method</var> argument is
+ ignored.  For scalar <var>freq</var>, an integer power of 2, or <var>method</var> =
+ &quot;FFT&quot;, causes the spectrum to be calculated by FFT.  Otherwise, the spectrum
+ is calculated as a polynomial.  It may be computationally more
+ efficient to use the FFT method if length of the model is not much
+ smaller than the number of frequency values.  The spectrum is scaled so
+ that spectral energy (area under spectrum) is the same as the time-domain
+ energy (mean square of the signal).
+</p>
+<p> ARGUMENTS:
+ All but the first two arguments are optional and may be empty.
+ </p><ul>
+<li>
+ <var>a</var>
+ list of M=(order+1) autoregressive model
+ coefficients.  The first element of &quot;ar_coeffs&quot; is the
+ zero-lag coefficient, which always has a value of 1.
+ </li><li>
+ <var>v</var>
+ square of the moving-average coefficient of the AR model.
+ </li><li>
+ <var>freq</var>
+ frequencies at which power spectral density is calculated, or a scalar
+ indicating the number of uniformly distributed frequency
+ values at which spectral density is calculated.
+ (default = 256)
+ </li><li>
+ <var>Fs</var>
+ sampling frequency (Hertz) (default=1)
+ </li></ul>
+
+<p> CONTROL-STRING ARGUMENTS &ndash; each of these arguments is a character string.
+ Control-string arguments can be in any order after the other arguments.
+</p>
+<p> Range:
+</p>
+<p> &rsquo;half&rsquo;,  &rsquo;onesided&rsquo; : frequency range of the spectrum is
+ from zero up to but not including sample_f/2.  Power
+ from negative frequencies is added to the positive
+ side of the spectrum.
+ &rsquo;whole&rsquo;, &rsquo;twosided&rsquo; : frequency range of the spectrum is
+ -sample_f/2 to sample_f/2, with negative frequencies
+ stored in &quot;wrap around&quot; order after the positive
+ frequencies; e.g. frequencies for a 10-point &rsquo;twosided&rsquo;
+ spectrum are 0 0.1 0.2 0.3 0.4 0.5 -0.4 -0.3 -0.2 -0.1
+ &rsquo;shift&rsquo;, &rsquo;centerdc&rsquo; : same as &rsquo;whole&rsquo; but with the first half
+ of the spectrum swapped with second half to put the
+ zero-frequency value in the middle. (See &quot;help
+ fftshift&quot;. If &quot;freq&quot; is vector, &rsquo;shift&rsquo; is ignored.
+ If model coefficients &quot;ar_coeffs&quot; are real, the default
+ range is &rsquo;half&rsquo;, otherwise default range is &rsquo;whole&rsquo;.
+</p>
+<p> Method:
+</p>
+<p> &rsquo;fft&rsquo;:  use FFT to calculate power spectrum.
+ &rsquo;poly&rsquo;: calculate power spectrum as a polynomial of 1/z
+ N.B. this argument is ignored if the &quot;freq&quot; argument is a
+ vector.  The default is &rsquo;poly&rsquo; unless the &quot;freq&quot;
+ argument is an integer power of 2.
+</p>
+<p> Plot type:
+</p>
+<p> &rsquo;plot&rsquo;, &rsquo;semilogx&rsquo;, &rsquo;semilogy&rsquo;, &rsquo;loglog&rsquo;, &rsquo;squared&rsquo; or &rsquo;db&rsquo;:
+ specifies the type of plot.  The default is &rsquo;plot&rsquo;, which
+ means linear-linear axes. &rsquo;squared&rsquo; is the same as &rsquo;plot&rsquo;.
+ &rsquo;dB&rsquo; plots &quot;10*log10(psd)&quot;.  This argument is ignored and a
+ spectrum is not plotted if the caller requires a returned
+ value.
+</p>
+<p> RETURNED VALUES:
+ If returned values are not required by the caller, the spectrum
+ is plotted and nothing is returned.
+ </p><ul>
+<li>
+ <var>psd</var>
+ estimate of power-spectral density
+ </li><li>
+ <var>f_out</var>
+ frequency values
+ </li></ul>
+
+<p> REFERENCE
+ [1] Equation 2.28 from Steven M. Kay and Stanley Lawrence Marple Jr.:
+   &quot;Spectrum analysis &ndash; a modern perspective&quot;,
+   Proceedings of the IEEE, Vol 69, pp 1380-1419, Nov., 1981
+</p>
+
+</div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

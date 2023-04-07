@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: cl2bp</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#FIR Filter Design">
+                    <i class="fas fa-list-alt"></i>
+                    FIR Filter Design
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>cl2bp</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+dl>
+<dt><u>Loadable Function:</u> <var>h</var> = <b>cl2bp</b><i> (<var>m</var>, <var>w1</var>, <var>w2</var>, <var>up</var>, <var>lo</var>)</i></dt>
+<dt><u>Loadable Function:</u> <var>h</var> = <b>cl2bp</b><i> (<var>m</var>, <var>w1</var>, <var>w2</var>, <var>up</var>, <var>lo</var>, <var>gridsize</var>)</i></dt>
+</dl>
+
+<p>Constrained L2 bandpass FIR filter design.  This is a fast implementation of
+the algorithm cited below.  Compared to <math>remez</math>, it offers implicit
+specification of transition bands, a higher likelihood of convergence, and an
+error criterion combining features of both L2 and Chebyshev approaches.
+</p>
+<div class="ms-5">
+<p>Inputs:
+</p>
+<dl compact="compact">
+<dt> <var>m</var></dt>
+</dl>
+<p>degree of cosine polynomial, i.e. the number of output coefficients will be
+<var>m</var>*2+1
+</p></dd>
+<dt>  <var>w1</var></dt>
+<dt> <var>w2</var></dt>
+</dl>
+<p>bandpass filter cutoffs in the range 0 &lt;= <var>w1</var> &lt; <var>w2</var> &lt;= pi,
+where pi is the Nyquist frequency
+</p></dd>
+<dt> <var>up</var></dt>
+</dl>
+<p>vector of 3 upper bounds for [stopband1, passband, stopband2]
+</p></dd>
+<dt> <var>lo</var></dt>
+</dl>
+<p>vector of 3 lower bounds for [stopband1, passband, stopband2]
+</p></dd>
+<dt> <var>gridsize</var></dt>
+</dl>
+<p>search grid size; larger values may improve accuracy,
+but greatly increase calculation time.
+</p></dd>
+</dl>
+
+<p>Output:
+</p>
+<p>A vector of <var>m</var>*2+1 FIR coefficients, or an empty value if the solver
+failed to converge.
+</p>
+<p>Example:
+</p><table><tr><td>&nbsp;</td><td><pre class="example"><code>h = cl2bp(30, 0.3*pi, 0.6*pi, [0.02, 1.02, 0.02], [-0.02, 0.98, -0.02], 2^11);</code>
+</pre></td></tr></table>
+
+<p>Original Paper:  I. W. Selesnick, M. Lang, and C. S. Burrus.  A modified
+algorithm for constrained least square design of multiband FIR filters without
+specified transition bands.
+IEEE Trans. on Signal Processing, 46(2):497-501, February 1998.
+</p></dd></dl>
+<p><strong>See also: </strong>
+  <a href="remez.html">remez</a>
+</p>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

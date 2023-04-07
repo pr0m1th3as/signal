@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=https://gnu-octave.github.io/packages/signal>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-2 mb-2 mb-sm-0">
+              <img src="assets/signal.png" class="d-block m-auto" alt="signal">
+            </div>
+            <div class="col-sm-9 col-md-10">
+              <h3 class="d-inline-block mr-2">signal</h3>
+              <b>1.4.3&nbsp;2022-10-28</b>
+              <p class="indent">
+                Signal processing tools, including filtering, windowing and display functions.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+           <p>Select Category:
+             <select name="cat" onchange="location = this.options[this.selectedIndex].value;">
+             <option value="#Signals">Signals</option>
+             <option value="#Signal Measurement">Signal Measurement</option>
+             <option value="#Correlation and Convolution">Correlation and Convolution</option>
+             <option value="#Filtering">Filtering</option>
+             <option value="#Filter Analysis">Filter Analysis</option>
+             <option value="#Filter Conversion">Filter Conversion</option>
+             <option value="#IIR Filter Design">IIR Filter Design</option>
+             <option value="#FIR Filter Design">FIR Filter Design</option>
+             <option value="#Transforms">Transforms</option>
+             <option value="#Power Spectrum Analysis">Power Spectrum Analysis</option>
+             <option value="#Window Functions">Window Functions</option>
+             <option value="#System Identification">System Identification</option>
+             <option value="#Sample Rate Change">Sample Rate Change</option>
+             <option value="#Utility">Utility</option>
+             </select>
+           <p>
+
+           <h3 class="category">
+             <a name="Signals">Signals</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="buffer.html">buffer</a>
+                   </code></b>
+                 </td>
+                 <td>Buffer a signal into a data frame.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="chirp.html">chirp</a>
+                   </code></b>
+                 </td>
+                 <td>Evaluate a chirp signal at time T.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cmorwavf.html">cmorwavf</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the Complex Morlet wavelet.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="diric.html">diric</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the dirichlet function.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="gauspuls.html">gauspuls</a>
+                   </code></b>
+                 </td>
+                 <td>Generate a Gaussian modulated sinusoidal pulse sampled at times T.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="gmonopuls.html">gmonopuls</a>
+                   </code></b>
+                 </td>
+                 <td>Return the gaussian monopulse.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="mexihat.html">mexihat</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the Mexican hat wavelet.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="meyeraux.html">meyeraux</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the Meyer wavelet auxiliary function.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="morlet.html">morlet</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the Morlet wavelet.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="pulstran.html">pulstran</a>
+                   </code></b>
+                 </td>
+                 <td>Generate the signal y=sum(func(t+d,...))  for each d.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="rectpuls.html">rectpuls</a>
+                   </code></b>
+                 </td>
+                 <td>Generate a rectangular pulse over the interval [-W/2,W/2), sampled at
+times T.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sawtooth.html">sawtooth</a>
+                   </code></b>
+                 </td>
+                 <td>Generates a sawtooth wave of period '2 * pi' with limits '+1/-1' for the
+elements of T.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="shanwavf.html">shanwavf</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the Complex Shannon wavelet.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="shiftdata.html">shiftdata</a>
+                   </code></b>
+                 </td>
+                 <td>Shift data IN to permute the dimension DIM to the first column.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sigmoid_train.html">sigmoid_train</a>
+                   </code></b>
+                 </td>
+                 <td>Evaluate a train of sigmoid functions at T.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="specgram.html">specgram</a>
+                   </code></b>
+                 </td>
+                 <td>Generate a spectrogram for the signal X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="square.html">square</a>
+                   </code></b>
+                 </td>
+                 <td>Generate a square wave of period 2 pi with limits +1/-1.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="tripuls.html">tripuls</a>
+                   </code></b>
+                 </td>
+                 <td>Generate a triangular pulse over the interval [-W/2,W/2), sampled at
+times T.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="udecode.html">udecode</a>
+                   </code></b>
+                 </td>
+                 <td>Invert the operation of uencode.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="uencode.html">uencode</a>
+                   </code></b>
+                 </td>
+                 <td>Quantize the entries of the array IN using 2^N quantization levels.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="unshiftdata.html">unshiftdata</a>
+                   </code></b>
+                 </td>
+                 <td>Reverse what is done by shiftdata.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Signal Measurement">Signal Measurement</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="findpeaks.html">findpeaks</a>
+                   </code></b>
+                 </td>
+                 <td>Finds peaks on DATA.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="peak2peak.html">peak2peak</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the difference between the maximum and minimum values in the
+vector X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="peak2rms.html">peak2rms</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the ratio of the largest absolute value to the root-mean-square
+(RMS) value of the vector X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="rms.html">rms</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the root-mean-square (RMS) of the vector X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="rssq.html">rssq</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the root-sum-of-squares (RSS) of the vector X.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Correlation and Convolution">Correlation and Convolution</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cconv.html">cconv</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the modulo-N circular convolution.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="convmtx.html">convmtx</a>
+                   </code></b>
+                 </td>
+                 <td>If A is a column vector and X is a column vector of length N, then</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="wconv.html">wconv</a>
+                   </code></b>
+                 </td>
+                 <td>1-D or 2-D convolution.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="xcorr.html">xcorr</a>
+                   </code></b>
+                 </td>
+                 <td>Estimates the cross-correlation.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="xcorr2.html">xcorr2</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the 2D cross-correlation of matrices A and B.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="xcov.html">xcov</a>
+                   </code></b>
+                 </td>
+                 <td>Compute covariance at various lags [=correlation(x-mean(x),y-mean(y))].</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Filtering">Filtering</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="filtfilt.html">filtfilt</a>
+                   </code></b>
+                 </td>
+                 <td>Forward and reverse filter the signal.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="filtic.html">filtic</a>
+                   </code></b>
+                 </td>
+                 <td>Set initial condition vector for filter function The vector zf has the
+same values that would be obtained from function filter given past
+inputs x and outputs y</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="medfilt1.html">medfilt1</a>
+                   </code></b>
+                 </td>
+                 <td>Apply a one dimensional median filter with a window size of N to the
+data X, which must be real, double and full.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="movingrms.html">movingrms</a>
+                   </code></b>
+                 </td>
+                 <td>Calculate moving RMS value of the signal in X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sgolayfilt.html">sgolayfilt</a>
+                   </code></b>
+                 </td>
+                 <td>Smooth the data in x with a Savitsky-Golay smoothing filter of
+polynomial order p and length n, n odd, n > p.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sosfilt.html">sosfilt</a>
+                   </code></b>
+                 </td>
+                 <td>Second order section IIR filtering of X.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Filter Analysis">Filter Analysis</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="freqs.html">freqs</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the s-plane frequency response of the IIR filter B(s)/A(s) as H
+= polyval(B,j*W)./polyval(A,j*W).</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="freqs_plot.html">freqs_plot</a>
+                   </code></b>
+                 </td>
+                 <td>Plot the amplitude and phase of the vector H.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="fwhm.html">fwhm</a>
+                   </code></b>
+                 </td>
+                 <td>Compute peak full-width at half maximum (FWHM) or at another level of
+peak maximum for vector or matrix data Y, optionally sampled as y(x).</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="grpdelay.html">grpdelay</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the group delay of a filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="impz.html">impz</a>
+                   </code></b>
+                 </td>
+                 <td>Generate impulse-response characteristics of the filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="zplane.html">zplane</a>
+                   </code></b>
+                 </td>
+                 <td>Plot the poles and zeros on a complex plane.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Filter Conversion">Filter Conversion</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="polystab.html">polystab</a>
+                   </code></b>
+                 </td>
+                 <td> b = polystab(a)</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="residued.html">residued</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the partial fraction expansion (PFE) of filter H(z) = B(z)/A(z).</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="residuez.html">residuez</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the partial fraction expansion of filter H(z) = B(z)/A(z).</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sos2ss.html">sos2ss</a>
+                   </code></b>
+                 </td>
+                 <td>Convert series second-order sections to state-space.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sos2tf.html">sos2tf</a>
+                   </code></b>
+                 </td>
+                 <td>Convert series second-order sections to transfer function.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sos2zp.html">sos2zp</a>
+                   </code></b>
+                 </td>
+                 <td>Convert series second-order sections to zeros, poles, and gains (pole
+residues).</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ss2tf.html">ss2tf</a>
+                   </code></b>
+                 </td>
+                 <td>Conversion from state-space to transfer function representation.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ss2zp.html">ss2zp</a>
+                   </code></b>
+                 </td>
+                 <td>Converts a state space representation to a set of poles and zeros; K is
+a gain associated with the zeros.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="tf2sos.html">tf2sos</a>
+                   </code></b>
+                 </td>
+                 <td>Convert direct-form filter coefficients to series second-order sections.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="tf2ss.html">tf2ss</a>
+                   </code></b>
+                 </td>
+                 <td>Conversion from transfer function to state-space.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="tf2zp.html">tf2zp</a>
+                   </code></b>
+                 </td>
+                 <td>Convert transfer functions to poles-and-zero representations.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="zp2sos.html">zp2sos</a>
+                   </code></b>
+                 </td>
+                 <td>Convert filter poles and zeros to second-order sections.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="zp2ss.html">zp2ss</a>
+                   </code></b>
+                 </td>
+                 <td>Conversion from zero / pole to state space.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="zp2tf.html">zp2tf</a>
+                   </code></b>
+                 </td>
+                 <td>Converts zeros / poles to a transfer function.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="IIR Filter Design">IIR Filter Design</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="besselap.html">besselap</a>
+                   </code></b>
+                 </td>
+                 <td>Return bessel analog filter prototype.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="besself.html">besself</a>
+                   </code></b>
+                 </td>
+                 <td>Generate a Bessel filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bilinear.html">bilinear</a>
+                   </code></b>
+                 </td>
+                 <td>Transform a s-plane filter specification into a z-plane specification.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="buttap.html">buttap</a>
+                   </code></b>
+                 </td>
+                 <td>Design lowpass analog Butterworth filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="butter.html">butter</a>
+                   </code></b>
+                 </td>
+                 <td>Generate a Butterworth filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="buttord.html">buttord</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the minimum filter order of a Butterworth filter with the
+desired response characteristics.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cheb.html">cheb</a>
+                   </code></b>
+                 </td>
+                 <td>Returns the value of the nth-order Chebyshev polynomial calculated at
+the point x.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cheb1ap.html">cheb1ap</a>
+                   </code></b>
+                 </td>
+                 <td>Design lowpass analog Chebyshev type I filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cheb1ord.html">cheb1ord</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the minimum filter order of a Chebyshev type I filter with the
+desired response characteristics.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cheb2ap.html">cheb2ap</a>
+                   </code></b>
+                 </td>
+                 <td>Design lowpass analog Chebyshev type II filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cheb2ord.html">cheb2ord</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the minimum filter order of a Chebyshev type II filter with the
+desired response characteristics.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cheby1.html">cheby1</a>
+                   </code></b>
+                 </td>
+                 <td>Generate a Chebyshev type I filter with RP dB of passband ripple.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cheby2.html">cheby2</a>
+                   </code></b>
+                 </td>
+                 <td>Generate a Chebyshev type II filter with RS dB of stopband attenuation.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ellip.html">ellip</a>
+                   </code></b>
+                 </td>
+                 <td>Generate an elliptic or Cauer filter with RP dB of passband ripple and
+RS dB of stopband attenuation.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ellipap.html">ellipap</a>
+                   </code></b>
+                 </td>
+                 <td>Design lowpass analog elliptic filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ellipord.html">ellipord</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the minimum filter order of an elliptic filter with the desired
+response characteristics.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="iirlp2mb.html">iirlp2mb</a>
+                   </code></b>
+                 </td>
+                 <td> IIR Low Pass Filter to Multiband Filter Transformation</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="impinvar.html">impinvar</a>
+                   </code></b>
+                 </td>
+                 <td>Converts analog filter with coefficients B and A to digital, conserving
+impulse response.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="invimpinvar.html">invimpinvar</a>
+                   </code></b>
+                 </td>
+                 <td>Converts digital filter with coefficients B and A to analog, conserving
+impulse response.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ncauer.html">ncauer</a>
+                   </code></b>
+                 </td>
+                 <td>Analog prototype for Cauer filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="pei_tseng_notch.html">pei_tseng_notch</a>
+                   </code></b>
+                 </td>
+                 <td>Return coefficients for an IIR notch-filter with one or more filter
+frequencies and according (very narrow) bandwidths to be used with
+'filter' or 'filtfilt'.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sftrans.html">sftrans</a>
+                   </code></b>
+                 </td>
+                 <td>Transform band edges of a generic lowpass filter (cutoff at W=1)
+represented in splane zero-pole-gain form.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="FIR Filter Design">FIR Filter Design</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cl2bp.html">cl2bp</a>
+                   </code></b>
+                 </td>
+                 <td>Constrained L2 bandpass FIR filter design.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="fir1.html">fir1</a>
+                   </code></b>
+                 </td>
+                 <td>Produce an order N FIR filter with the given frequency cutoff W,
+returning the N+1 filter coefficients in B.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="fir2.html">fir2</a>
+                   </code></b>
+                 </td>
+                 <td>Produce an order N FIR filter with arbitrary frequency response M over
+frequency bands F, returning the N+1 filter coefficients in B.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="firls.html">firls</a>
+                   </code></b>
+                 </td>
+                 <td>FIR filter design using least squares method.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="kaiserord.html">kaiserord</a>
+                   </code></b>
+                 </td>
+                 <td>Return the parameters needed to produce a filter of the desired
+specification from a Kaiser window.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="qp_kaiser.html">qp_kaiser</a>
+                   </code></b>
+                 </td>
+                 <td>Computes a finite impulse response (FIR) filter for use with a
+quasi-perfect reconstruction polyphase-network filter bank.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="remez.html">remez</a>
+                   </code></b>
+                 </td>
+                 <td>Parks-McClellan optimal FIR filter design.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sgolay.html">sgolay</a>
+                   </code></b>
+                 </td>
+                 <td>Computes the filter coefficients for all Savitzsky-Golay smoothing
+filters of order p for length n (odd).  m can be used in order to get
+directly the mth derivative.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Transforms">Transforms</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bitrevorder.html">bitrevorder</a>
+                   </code></b>
+                 </td>
+                 <td>Reorder the elements of the vector X in bit-reversed order.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cceps.html">cceps</a>
+                   </code></b>
+                 </td>
+                 <td>Return the complex cepstrum of the vector X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cplxreal.html">cplxreal</a>
+                   </code></b>
+                 </td>
+                 <td>Sort the numbers Z into complex-conjugate-valued and real-valued
+elements.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="czt.html">czt</a>
+                   </code></b>
+                 </td>
+                 <td>Chirp z-transform.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="dct.html">dct</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the discrete cosine transform of X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="dct2.html">dct2</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the 2-D discrete cosine transform of matrix X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="dctmtx.html">dctmtx</a>
+                   </code></b>
+                 </td>
+                 <td>Return the DCT transformation matrix of size N-by-N.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="dftmtx.html">dftmtx</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the N-by-N Fourier transformation matrix.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="digitrevorder.html">digitrevorder</a>
+                   </code></b>
+                 </td>
+                 <td>Reorder the elements of the vector X in digit-reversed order.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="dst.html">dst</a>
+                   </code></b>
+                 </td>
+                 <td>Computes the type I discrete sine transform of X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="dwt.html">dwt</a>
+                   </code></b>
+                 </td>
+                 <td>Discrete wavelet transform (1D).</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="fht.html">fht</a>
+                   </code></b>
+                 </td>
+                 <td>Calculate the Fast Hartley Transform of real input D.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="fwht.html">fwht</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the Walsh-Hadamard transform of X using the Fast Walsh-Hadamard
+Transform (FWHT) algorithm.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="hilbert.html">hilbert</a>
+                   </code></b>
+                 </td>
+                 <td>Analytic extension of real valued signal.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="idct.html">idct</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the inverse discrete cosine transform of X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="idct2.html">idct2</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the inverse 2-D discrete cosine transform of matrix X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="idst.html">idst</a>
+                   </code></b>
+                 </td>
+                 <td>Computes the inverse type I discrete sine transform of Y.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ifht.html">ifht</a>
+                   </code></b>
+                 </td>
+                 <td>Calculate the inverse Fast Hartley Transform of real input D.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ifwht.html">ifwht</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the inverse Walsh-Hadamard transform of X using the Fast
+Walsh-Hadamard Transform (FWHT) algorithm.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="rceps.html">rceps</a>
+                   </code></b>
+                 </td>
+                 <td>Return the cepstrum of the signal X.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Power Spectrum Analysis">Power Spectrum Analysis</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ar_psd.html">ar_psd</a>
+                   </code></b>
+                 </td>
+                 <td>Calculate the power spectrum of the autoregressive model</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cohere.html">cohere</a>
+                   </code></b>
+                 </td>
+                 <td>Estimate (mean square) coherence of signals "x" and "y".</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="cpsd.html">cpsd</a>
+                   </code></b>
+                 </td>
+                 <td>Estimate cross power spectrum of data X and Y by the Welch (1967)
+periodogram/FFT method.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="csd.html">csd</a>
+                   </code></b>
+                 </td>
+                 <td>Estimate cross power spectrum of data "x" and "y" by the Welch (1967)
+periodogram/FFT method.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="db2pow.html">db2pow</a>
+                   </code></b>
+                 </td>
+                 <td>Convert decibels (dB) to power.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="mscohere.html">mscohere</a>
+                   </code></b>
+                 </td>
+                 <td>Estimate (mean square) coherence of signals X and Y.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="pburg.html">pburg</a>
+                   </code></b>
+                 </td>
+                 <td>Calculate Burg maximum-entropy power spectral density.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="pow2db.html">pow2db</a>
+                   </code></b>
+                 </td>
+                 <td>Convert power to decibels (dB).</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="pwelch.html">pwelch</a>
+                   </code></b>
+                 </td>
+                 <td>Estimate power spectral density of data "x" by the Welch (1967)
+periodogram/FFT method.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="pyulear.html">pyulear</a>
+                   </code></b>
+                 </td>
+                 <td>Calculates a Yule-Walker autoregressive (all-pole) model of the data "x"
+and computes the power spectrum of the model.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="tfe.html">tfe</a>
+                   </code></b>
+                 </td>
+                 <td>Estimate transfer function of system with input "x" and output "y".</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="tfestimate.html">tfestimate</a>
+                   </code></b>
+                 </td>
+                 <td>Estimate transfer function of system with input X and output Y.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="__power.html">__power</a>
+                   </code></b>
+                 </td>
+                 <td>Plot the power spectrum of the given ARMA model.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Window Functions">Window Functions</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="barthannwin.html">barthannwin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a modified Bartlett-Hann window of
+length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="blackmanharris.html">blackmanharris</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Blackman-Harris window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="blackmannuttall.html">blackmannuttall</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Blackman-Nuttall window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bohmanwin.html">bohmanwin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Bohman window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="boxcar.html">boxcar</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a rectangular window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="chebwin.html">chebwin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Dolph-Chebyshev window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="flattopwin.html">flattopwin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Flat Top window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="gaussian.html">gaussian</a>
+                   </code></b>
+                 </td>
+                 <td>Return a Gaussian convolution window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="gausswin.html">gausswin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Gaussian window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="hann.html">hann</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Hanning window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="kaiser.html">kaiser</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Kaiser window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="nuttallwin.html">nuttallwin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Blackman-Harris window defined by
+Nuttall of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="parzenwin.html">parzenwin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Parzen window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="rectwin.html">rectwin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a rectangular window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="triang.html">triang</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a triangular window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="tukeywin.html">tukeywin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Tukey window (also known as the
+cosine-tapered window) of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="ultrwin.html">ultrwin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the coefficients of an Ultraspherical window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="welchwin.html">welchwin</a>
+                   </code></b>
+                 </td>
+                 <td>Return the filter coefficients of a Welch window of length M.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="window.html">window</a>
+                   </code></b>
+                 </td>
+                 <td>Create an M-point window from the function F.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="System Identification">System Identification</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="arburg.html">arburg</a>
+                   </code></b>
+                 </td>
+                 <td>Calculate coefficients of an autoregressive (AR) model of complex data X
+using the whitening lattice-filter method of Burg (1968).</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="aryule.html">aryule</a>
+                   </code></b>
+                 </td>
+                 <td>Fit an AR (P)-model with Yule-Walker estimates.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="invfreq.html">invfreq</a>
+                   </code></b>
+                 </td>
+                 <td>Fit filter B(z)/A(z) or B(s)/A(s) to complex frequency response at
+frequency points F.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="invfreqs.html">invfreqs</a>
+                   </code></b>
+                 </td>
+                 <td>Fit filter B(s)/A(s)to the complex frequency response H at frequency
+points F.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="invfreqz.html">invfreqz</a>
+                   </code></b>
+                 </td>
+                 <td>Fit filter B(z)/A(z)to the complex frequency response H at frequency
+points F.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="levinson.html">levinson</a>
+                   </code></b>
+                 </td>
+                 <td>Use the Durbin-Levinson algorithm to solve: toeplitz(acf(1:p)) * x =
+-acf(2:p+1).</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Sample Rate Change">Sample Rate Change</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="data2fun.html">data2fun</a>
+                   </code></b>
+                 </td>
+                 <td>Create a vectorized function based on data samples using interpolation.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="decimate.html">decimate</a>
+                   </code></b>
+                 </td>
+                 <td>Downsample the signal X by a reduction factor of Q.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="downsample.html">downsample</a>
+                   </code></b>
+                 </td>
+                 <td>Downsample the signal, selecting every Nth element.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="interp.html">interp</a>
+                   </code></b>
+                 </td>
+                 <td>Upsample the signal x by a factor of q, using an order 2*q*n+1 FIR
+filter.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="resample.html">resample</a>
+                   </code></b>
+                 </td>
+                 <td>Change the sample rate of X by a factor of P/Q.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="upfirdn.html">upfirdn</a>
+                   </code></b>
+                 </td>
+                 <td>Upsample, FIR filtering, and downsample.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="upsample.html">upsample</a>
+                   </code></b>
+                 </td>
+                 <td>Upsample the signal, inserting N-1 zeros between every element.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Utility">Utility</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="buffer.html">buffer</a>
+                   </code></b>
+                 </td>
+                 <td>Buffer a signal into a data frame.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="clustersegment.html">clustersegment</a>
+                   </code></b>
+                 </td>
+                 <td>Calculate boundary indexes of clusters of 1's.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="fracshift.html">fracshift</a>
+                   </code></b>
+                 </td>
+                 <td>Shift the series X by a (possibly fractional) number of samples D.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="marcumq.html">marcumq</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the generalized Marcum Q function of order M with noncentrality
+parameter A and argument B.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="primitive.html">primitive</a>
+                   </code></b>
+                 </td>
+                 <td>Calculate the primitive of a function.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="sampled2continuous.html">sampled2continuous</a>
+                   </code></b>
+                 </td>
+                 <td>Calculate the x(t) reconstructed from samples x[n] sampled at a rate 1/T
+samples per unit time.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="schtrig.html">schtrig</a>
+                   </code></b>
+                 </td>
+                 <td>Implements a multisignal Schmitt trigger with levels LVL.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="upsamplefill.html">upsamplefill</a>
+                   </code></b>
+                 </td>
+                 <td>Upsamples a vector interleaving given values or copies of the vector
+elements.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="wkeep.html">wkeep</a>
+                   </code></b>
+                 </td>
+                 <td>Extract the elements of X of size L from the center, the right or the
+left.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="wrev.html">wrev</a>
+                   </code></b>
+                 </td>
+                 <td>Reverse the order of the element of the vector X.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="zerocrossing.html">zerocrossing</a>
+                   </code></b>
+                 </td>
+                 <td>Estimates the points at which a given waveform y=y(x) crosses the x-axis
+using linear interpolation.</td>
+               </tr>
+             </tbody>
+           </table>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

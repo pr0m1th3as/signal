@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: pyulear</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Power Spectrum Analysis">
+                    <i class="fas fa-list-alt"></i>
+                    Power Spectrum Analysis
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>pyulear</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [psd,f_out] = <b>pyulear</b><i>(x,poles,freq,Fs,range,method,plot_type)</i></dt>
+</dl>
+<p> Calculates a Yule-Walker autoregressive (all-pole) model of the data &quot;x&quot;
+ and computes the power spectrum of the model.
+</p>
+<div class="ms-5">
+<p> This is a wrapper for functions &quot;aryule&quot; and &quot;ar_psd&quot; which perform the
+ argument checking.
+</p>
+<p> See &quot;help aryule&quot; and &quot;help ar_psd&quot; for further details.
+</p>
+<p> ARGUMENTS:
+</p>
+<p>     All but the first two arguments are optional and may be empty.
+ </p><dl compact="compact">
+<dt> x</dt>
+</dl>
+<p>     [vector] sampled data
+</p>
+   </dd>
+<dt> poles</dt>
+</dl>
+<p>     [integer scalar] required number of poles of the AR model
+</p>
+   </dd>
+<dt> freq</dt>
+</dl>
+<p>     [real vector] frequencies at which power spectral density
+           is calculated
+</p>
+<p>     [integer scalar] number of uniformly distributed frequency
+           values at which spectral density is calculated.
+           [default=256]
+</p>
+   </dd>
+<dt> Fs</dt>
+</dl>
+<p>     [real scalar] sampling frequency (Hertz) [default=1]
+ </p></dd>
+</dl>
+
+<p> CONTROL-STRING ARGUMENTS &ndash; each of these arguments is a character string.
+</p>
+<p>   Control-string arguments can be in any order after the other arguments.
+</p>
+ <dl compact="compact">
+<dt> range</dt>
+</dl>
+<p>     &rsquo;half&rsquo;,  &rsquo;onesided&rsquo; : frequency range of the spectrum is
+           from zero up to but not including sample_f/2.  Power
+           from negative frequencies is added to the positive
+           side of the spectrum.
+</p>
+<p>     &rsquo;whole&rsquo;, &rsquo;twosided&rsquo; : frequency range of the spectrum is
+           -sample_f/2 to sample_f/2, with negative frequencies
+           stored in &quot;wrap around&quot; order after the positive
+           frequencies; e.g. frequencies for a 10-point &rsquo;twosided&rsquo;
+           spectrum are 0 0.1 0.2 0.3 0.4 0.5 -0.4 -0.3 -0.2 -0.1
+</p>
+<p>      &rsquo;shift&rsquo;, &rsquo;centerdc&rsquo; : same as &rsquo;whole&rsquo; but with the first half
+           of the spectrum swapped with second half to put the
+           zero-frequency value in the middle. (See &quot;help
+           fftshift&quot;. If &quot;freq&quot; is vector, &rsquo;shift&rsquo; is ignored.
+</p>
+<p>      If model coefficients &quot;ar_coeffs&quot; are real, the default
+      range is &rsquo;half&rsquo;, otherwise default range is &rsquo;whole&rsquo;.
+</p>
+   </dd>
+<dt> method</dt>
+</dl>
+<p>      &rsquo;fft&rsquo;:  use FFT to calculate power spectrum.
+</p>
+<p>      &rsquo;poly&rsquo;: calculate power spectrum as a polynomial of 1/z
+           N.B. this argument is ignored if the &quot;freq&quot; argument is a
+           vector.  The default is &rsquo;poly&rsquo; unless the &quot;freq&quot;
+           argument is an integer power of 2.
+</p>
+ </dd>
+<dt> plot_type </dt>
+</dl>
+<p>    &rsquo;plot&rsquo;, &rsquo;semilogx&rsquo;, &rsquo;semilogy&rsquo;, &rsquo;loglog&rsquo;, &rsquo;squared&rsquo; or &rsquo;db&rsquo;:
+           specifies the type of plot.  The default is &rsquo;plot&rsquo;, which
+           means linear-linear axes. &rsquo;squared&rsquo; is the same as &rsquo;plot&rsquo;.
+           &rsquo;dB&rsquo; plots &quot;10*log10(psd)&quot;.  This argument is ignored and a
+           spectrum is not plotted if the caller requires a returned
+           value.
+ </p></dd>
+</dl>
+
+<p> RETURNED VALUES:
+</p>
+<p>     If return values are not required by the caller, the spectrum
+     is plotted and nothing is returned.
+</p>
+ <dl compact="compact">
+<dt> psd</dt>
+</dl>
+<p>   [real vector] power-spectrum estimate
+   </p></dd>
+<dt> f_out</dt>
+</dl>
+<p>   [real vector] frequency values
+ </p></dd>
+</dl>
+
+<p> HINTS
+</p>
+<p>   This function is a wrapper for aryule and ar_psd.
+</p>
+<p>   See &quot;help aryule&quot;, &quot;help ar_psd&quot;.
+ </p>
+</div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ a = [1.0 -1.6216505 1.1102795 -0.4621741 0.2075552 -0.018756746];
+ Fs = 25;
+ n = 16384;
+ signal = detrend (filter (0.70181, a, rand (1, n)));
+ % frequency shift by modulating with exp(j.omega.t)
+ skewed = signal .* exp (2*pi*i*2/Fs*[1:n]);
+ hold on;
+ pyulear (signal, 3, [], Fs);
+ pyulear (signal, 4, [], Fs, "whole");
+ pyulear (signal, 5, 128, Fs, "shift", "semilogy");
+ pyulear (skewed, 7, 128, Fs, "shift", "semilogy");
+ user_freq = [-0.2:0.02:0.2]*Fs;
+ pyulear (skewed, 7, user_freq, Fs, "semilogy");
+ hold off;
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/pyulear_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

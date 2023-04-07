@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: kaiserord</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#FIR Filter Design">
+                    <i class="fas fa-list-alt"></i>
+                    FIR Filter Design
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>kaiserord</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [<var>n</var>, <var>Wn</var>, <var>beta</var>, <var>ftype</var>] = <b>kaiserord</b><i> (<var>f</var>, <var>m</var>, <var>dev</var>)</i></dt>
+<dt><u>Function File:</u> [&hellip;] = <b>kaiserord</b><i> (<var>f</var>, <var>m</var>, <var>dev</var>, <var>fs</var>)</i></dt>
+</dl>
+
+<p> Return the parameters needed to produce a filter of the desired
+ specification from a Kaiser window.  The vector <var>f</var> contains pairs of
+ frequency band edges in the range [0,1].  The vector <var>m</var> specifies the
+ magnitude response for each band.  The values of <var>m</var> must be zero for
+ all stop bands and must have the same magnitude for all pass bands. The
+ deviation of the filter <var>dev</var> can be specified as a scalar or a vector
+ of the same length as <var>m</var>.  The optional sampling rate <var>fs</var> can be
+ used to indicate that <var>f</var> is in Hz in the range [0,<var>fs</var>/2].
+</p>
+<div class="ms-5">
+<p> The returned value <var>n</var> is the required order of the filter (the length
+ of the filter minus 1).  The vector <var>Wn</var> contains the band edges of
+ the filter suitable for passing to <code>fir1</code>.  The value <var>beta</var> is
+ the parameter of the Kaiser window of length <var>n</var>+1 to shape the filter.
+ The string <var>ftype</var> contains the type of filter to specify to
+ <code>fir1</code>.
+</p>
+<p> The Kaiser window parameters n and beta are computed from the
+ relation between ripple (A=-20*log10(dev)) and transition width
+ (dw in radians) discovered empirically by Kaiser:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> </pre><pre class="example">           / 0.1102(A-8.7)                        A &gt; 50
+    beta = | 0.5842(A-21)^0.4 + 0.07886(A-21)     21 &lt;= A &lt;= 50
+           \ 0.0                                  A &lt; 21
+
+    n = (A-8)/(2.285 dw)
+ </pre><pre class="example"> </pre></td></tr></table>
+
+<p> Example:
+ </p><table><tr><td>&nbsp;</td><td><pre class="example"> </pre><pre class="example"> [n, w, beta, ftype] = kaiserord ([1000, 1200], [1, 0], [0.05, 0.05], 11025);
+ b = fir1 (n, w, kaiser (n+1, beta), ftype, &quot;noscale&quot;);
+ freqz (b, 1, [], 11025);
+ </pre><pre class="example"> </pre></td></tr></table>
+<p> <strong>See also: </strong>
+  <a href="fir1.html">fir1</a>, 
+  <a href="kaiser.html">kaiser</a>
+</p>
+</div>
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ Fs = 11025;
+ for i=1:4
+   if i==1,
+     subplot(221); bands=[1200, 1500]; mag=[1, 0]; dev=[0.1, 0.1];
+   elseif i==2
+     subplot(222); bands=[1000, 1500]; mag=[0, 1]; dev=[0.1, 0.1];
+   elseif i==3
+     subplot(223); bands=[1000, 1200, 3000, 3500]; mag=[0, 1, 0]; dev=0.1;
+   elseif i==4
+     subplot(224); bands=100*[10, 13, 15, 20, 30, 33, 35, 40];
+     mag=[1, 0, 1, 0, 1]; dev=0.05;
+   endif
+   [n, w, beta, ftype] = kaiserord(bands, mag, dev, Fs);
+   d=max(1,fix(n/10));
+   if mag(length(mag))==1 && rem(d,2)==1, d=d+1; endif
+   [h, f] = freqz(fir1(n,w,ftype,kaiser(n+1,beta),'noscale'),1,[],Fs);
+   hm = freqz(fir1(n-d,w,ftype,kaiser(n-d+1,beta),'noscale'),1,[],Fs);
+   plot(f,abs(hm),sprintf("r;order %d;",n-d), ...
+        f,abs(h), sprintf("b;order %d;",n));
+   b = [0, bands, Fs/2]; hold on;
+   for i=2:2:length(b),
+     hi=mag(i/2)+dev(1); lo=max(mag(i/2)-dev(1),0);
+     plot([b(i-1), b(i), b(i), b(i-1), b(i-1)],[hi, hi, lo, lo, hi],"c;;");
+   endfor; hold off;
+ endfor
+
+ %--------------------------------------------------------------
+ % A filter meets the specifications if its frequency response
+ % passes through the ends of the criteria boxes, and fails if
+ % it passes through the top or the bottom.  The criteria are
+ % met precisely if the frequency response only passes through
+ % the corners of the boxes.  The blue line is the filter order
+ % returned by kaiserord, and the red line is some lower filter
+ % order.  Confirm that the blue filter meets the criteria and
+ % the red line fails.
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/kaiserord_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

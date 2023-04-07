@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: ellipord</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#IIR Filter Design">
+                    <i class="fas fa-list-alt"></i>
+                    IIR Filter Design
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>ellipord</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> <var>n</var> = <b>ellipord</b><i> (<var>wp</var>, <var>ws</var>, <var>rp</var>, <var>rs</var>)</i></dt>
+<dt><u>Function File:</u> <var>n</var> = <b>ellipord</b><i> ([<var>wp1</var>, <var>wp2</var>], [<var>ws1</var>, <var>ws2</var>], <var>rp</var>, <var>rs</var>)</i></dt>
+<dt><u>Function File:</u> <var>n</var> = <b>ellipord</b><i> ([<var>wp1</var>, <var>wp2</var>], [<var>ws1</var>, <var>ws2</var>], <var>rp</var>, <var>rs</var>, &quot;s&quot;)</i></dt>
+<dt><u>Function File:</u> [<var>n</var>, <var>wc</var>] = <b>ellipord</b><i> (&hellip;)</i></dt>
+</dl>
+<p> Compute the minimum filter order of an elliptic filter with the desired
+ response characteristics.  The filter frequency band edges are specified
+ by the passband frequency <var>wp</var> and stopband frequency <var>ws</var>.
+ Frequencies are normalized to the Nyquist frequency in the range [0,1].
+ <var>rp</var> is the allowable passband ripple measured in decibels, and <var>rs</var>
+ is the minimum attenuation in the stop band, also in decibels.  The output
+ arguments <var>n</var> and <var>wc</var> can be given as inputs to <code>ellip</code>.
+</p>
+<div class="ms-5">
+<p> If <var>wp</var> and <var>ws</var> are scalars, then <var>wp</var> is the passband cutoff
+ frequency and <var>ws</var> is the stopband edge frequency.  If <var>ws</var> is
+ greater than <var>wp</var>, the filter is a low-pass filter.  If <var>wp</var> is
+ greater than <var>ws</var>, the filter is a high-pass filter.
+</p>
+<p> If <var>wp</var> and <var>ws</var> are vectors of length 2, then <var>wp</var> defines the
+ passband interval and <var>ws</var> defines the stopband interval.  If <var>wp</var>
+ is contained within <var>ws</var> (<var>ws1</var> &lt; <var>wp1</var> &lt; <var>wp2</var> &lt; <var>ws2</var>),
+ the filter is a band-pass filter.  If <var>ws</var> is contained within <var>wp</var>
+ (<var>wp1</var> &lt; <var>ws1</var> &lt; <var>ws2</var> &lt; <var>wp2</var>), the filter is a band-stop
+ or band-reject filter.
+</p>
+<p> If the optional argument <code>&quot;s&quot;</code> is given, the minimum order for an analog
+ elliptic filter is computed.  All frequencies <var>wp</var> and <var>ws</var> are
+ specified in radians per second.
+</p>
+<p> Reference: Lamar, Marcus Vinicius, <cite>Notas de aula da disciplina TE 456 -
+ Circuitos Analogicos II</cite>, UFPR, 2001/2002.
+ <strong>See also: </strong>
+  <a href="buttord.html">buttord</a>, 
+  <a href="cheb1ord.html">cheb1ord</a>, 
+  <a href="cheb2ord.html">cheb2ord</a>, 
+  <a href="ellip.html">ellip</a>
+</p>
+</div>
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fpass = 4000;
+ fstop = 13713;
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn);
+ f = 0:fs/2;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ outline_lp_pass_x = [f(2)  , fpass(1), fpass(1)];
+ outline_lp_pass_y = [-Rpass, -Rpass  , -80];
+ outline_lp_stop_x = [f(2)  , fstop(1), fstop(1), max(f)];
+ outline_lp_stop_y = [0     , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_lp_pass_x, outline_lp_pass_y, "m", outline_lp_stop_x, outline_lp_stop_y, "m");
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("2nd order digital elliptical low-pass (without margin)");
+
+n = 2
+Wn = 0.1814
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 2
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fpass = 4000;
+ fstop = 13712;
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn);
+ f = 0:fs/2;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ outline_lp_pass_x = [f(2)  , fpass(1), fpass(1)];
+ outline_lp_pass_y = [-Rpass, -Rpass  , -80];
+ outline_lp_stop_x = [f(2)  , fstop(1), fstop(1), max(f)];
+ outline_lp_stop_y = [0     , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_lp_pass_x, outline_lp_pass_y, "m", outline_lp_stop_x, outline_lp_stop_y, "m");
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("3rd order digital elliptical low-pass (just exceeds 2nd order i.e. large margin)");
+
+n = 3
+Wn = 0.1814
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 3
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fstop = 4000;
+ fpass = 13713;
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "high");
+ f = 0:fs/2;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ outline_hp_pass_x = [fpass(1), fpass(1), max(f)];
+ outline_hp_pass_y = [-80     , -Rpass  , -Rpass];
+ outline_hp_stop_x = [min(f)  , fstop(1), fstop(1), max(f)];
+ outline_hp_stop_y = [-Rstop  , -Rstop  , 0       , 0     ];
+ hold on
+ plot (outline_hp_pass_x, outline_hp_pass_y, "m", outline_hp_stop_x, outline_hp_stop_y, "m");
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("2nd order digital elliptical high-pass (without margin)");
+
+n = 2
+Wn = 0.6219
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 4
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fstop = 4000;
+ fpass = 13712;
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "high");
+ f = 0:fs/2;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)));
+ outline_hp_pass_x = [fpass(1), fpass(1), max(f)];
+ outline_hp_pass_y = [-80     , -Rpass  , -Rpass];
+ outline_hp_stop_x = [min(f)  , fstop(1), fstop(1), max(f)];
+ outline_hp_stop_y = [-Rstop  , -Rstop  , 0       , 0     ];
+ hold on
+ plot (outline_hp_pass_x, outline_hp_pass_y, "m", outline_hp_stop_x, outline_hp_stop_y, "m");
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("3rd order digital elliptical high-pass (just exceeds 2nd order i.e. large margin)");
+
+n = 3
+Wn = 0.6219
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_401.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 5
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fpass = [9500 9750];
+ fstop = [8500 10261];
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn);
+ f = 5000:15000;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [min(f)  , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m", outline_bp_stop_x, outline_bp_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("4th order digital elliptical band-pass (without margin) limitation on upper freq");
+
+n = 2
+Wn =
+
+   0.4308   0.4422
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_501.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 6
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fpass = [9500 9750];
+ fstop = [9000 10700];
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn);
+ f = 5000:15000;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [min(f)  , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m", outline_bp_stop_x, outline_bp_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("4th order digital elliptical band-pass (without margin) limitation on lower freq");
+
+n = 2
+Wn =
+
+   0.4308   0.4422
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_601.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 7
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fpass = [9500 9750];
+ fstop = [8500 10260];
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn);
+ f = 5000:15000;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [min(f)  , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m", outline_bp_stop_x, outline_bp_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("6th order digital elliptical band-pass (just exceeds 4th order i.e. large margin) limitation on upper freq");
+
+n = 3
+Wn =
+
+   0.4308   0.4422
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_701.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 8
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fpass = [9500 9750];
+ fstop = [9001 10700];
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn);
+ f = 5000:15000;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [min(f)  , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m", outline_bp_stop_x, outline_bp_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("6th order digital elliptical band-pass (just exceeds 4th order i.e. large margin) limitation on lower freq");
+
+n = 3
+Wn =
+
+   0.4308   0.4422
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_801.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 9
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fstop = [9875 10126.5823];
+ fpass = [8500 11073];
+ Rpass = 0.5;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "stop");
+ f = 5000:15000;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_notch_pass_x_a = [min(f)  , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [min(f)  , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0       , 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m", outline_notch_pass_x_b, outline_notch_pass_y_b, "m", outline_notch_stop_x, outline_notch_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("4th order digital elliptical notch (without margin) limit on upper freq");
+
+n = 2
+Wn =
+
+   0.4060   0.5022
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_901.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 10
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fstop = [9875 10126.5823];
+ fpass = [8952 12000];
+ Rpass = 0.5;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "stop");
+ f = 5000:15000;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_notch_pass_x_a = [min(f)  , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [min(f)  , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0       , 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m", outline_notch_pass_x_b, outline_notch_pass_y_b, "m", outline_notch_stop_x, outline_notch_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("4th order digital elliptical notch (without margin) limit on lower freq");
+
+n = 2
+Wn =
+
+   0.4060   0.5022
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1001.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 11
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fstop = [9875 10126.5823];
+ fpass = [8500 11072];
+ Rpass = 0.5;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "stop");
+ f = 5000:15000;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_notch_pass_x_a = [min(f)  , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [min(f)  , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0       , 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m", outline_notch_pass_x_b, outline_notch_pass_y_b, "m", outline_notch_stop_x, outline_notch_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("6th order digital elliptical notch (just exceeds 4th order) limit on upper freq");
+
+n = 3
+Wn =
+
+   0.4060   0.5021
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 12
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fs    = 44100;
+ Npts  = fs;
+ fstop = [9875 10126.5823];
+ fpass = [8953 12000];
+ Rpass = 0.5;
+ Rstop = 40;
+ Wpass = 2/fs * fpass;
+ Wstop = 2/fs * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop)
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "stop");
+ f = 5000:15000;
+ W = f * (2 * pi / fs);
+ H = freqz (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_notch_pass_x_a = [min(f)  , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [min(f)  , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0       , 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m", outline_notch_pass_x_b, outline_notch_pass_y_b, "m", outline_notch_stop_x, outline_notch_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("6th order digital elliptical notch (just exceeds 4th order) limit on lower freq");
+
+n = 3
+Wn =
+
+   0.4060   0.5021
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 13
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = 4000;
+ fstop = 20224;
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "s");
+ f = 1000:10:100000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ semilogx(f, 20 * log10 (abs (H)))
+ outline_lp_pass_x = [f(2)  , fpass(1), fpass(1)];
+ outline_lp_pass_y = [-Rpass, -Rpass  , -80];
+ outline_lp_stop_x = [f(2)  , fstop(1), fstop(1), max(f)];
+ outline_lp_stop_y = [0     , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_lp_pass_x, outline_lp_pass_y, "m", outline_lp_stop_x, outline_lp_stop_y, "m")
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("2nd order analog elliptical low-pass (without margin)");
+
+n = 2
+Wn = 2.5133e+04
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 14
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = 4000;
+ fstop = 20223;
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "s");
+ f = 1000:10:100000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ semilogx (f, 20 * log10 (abs (H)))
+ outline_lp_pass_x = [f(2)  , fpass(1), fpass(1)];
+ outline_lp_pass_y = [-Rpass, -Rpass  , -80];
+ outline_lp_stop_x = [f(2)  , fstop(1), fstop(1), max(f)];
+ outline_lp_stop_y = [0     , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_lp_pass_x, outline_lp_pass_y, "m", outline_lp_stop_x, outline_lp_stop_y, "m")
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("3rd order analog elliptical low-pass (just exceeds 2nd order i.e. large margin)");
+
+n = 3
+Wn = 2.5133e+04
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1401.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 15
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = 4000;
+ fpass = 20224;
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "high", "s");
+ f = 1000:10:100000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ semilogx (f, 20 * log10 (abs (H)))
+ outline_hp_pass_x = [fpass(1), fpass(1), max(f)];
+ outline_hp_pass_y = [-80     , -Rpass  , -Rpass];
+ outline_hp_stop_x = [f(2)    , fstop(1), fstop(1), max(f)];
+ outline_hp_stop_y = [-Rstop  , -Rstop  , 0       , 0     ];
+ hold on
+ plot (outline_hp_pass_x, outline_hp_pass_y, "m", outline_hp_stop_x, outline_hp_stop_y, "m")
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("2nd order analog elliptical high-pass (without margin)");
+
+n = 2
+Wn = 1.2707e+05
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1501.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 16
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = 4000;
+ fpass = 20223;
+ Rpass = 3;
+ Rstop = 40;
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "high", "s");
+ f = 1000:10:100000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ semilogx (f, 20 * log10 (abs (H)))
+ outline_hp_pass_x = [fpass(1), fpass(1), max(f)];
+ outline_hp_pass_y = [-80     , -Rpass  , -Rpass];
+ outline_hp_stop_x = [f(2)    , fstop(1), fstop(1), max(f)];
+ outline_hp_stop_y = [-Rstop  , -Rstop  , 0       , 0     ];
+ hold on
+ plot (outline_hp_pass_x, outline_hp_pass_y, "m", outline_hp_stop_x, outline_hp_stop_y, "m")
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("3rd order analog elliptical high-pass (just exceeds 2nd order i.e. large margin)");
+
+n = 3
+Wn = 1.2706e+05
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1601.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 17
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = [9875 10126.5823];
+ fstop = [9000 10657];
+ Rpass = 3;
+ Rstop = 40;
+ fcenter = sqrt (fpass(1) * fpass(2));
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "s");
+ f = 5000:15000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [f(2)    , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m", outline_bp_stop_x, outline_bp_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("4th order analog elliptical band-pass (without margin) limitation on upper freq");
+
+n = 2
+Wn =
+
+   6.2046e+04   6.3627e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1701.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 18
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = [9875 10126.5823];
+ fstop = [9384 12000];
+ Rpass = 3;
+ Rstop = 40;
+ fcenter = sqrt (fpass(1) * fpass(2));
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "s");
+ f = 5000:15000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [f(2)    , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m", outline_bp_stop_x, outline_bp_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("4th order analog elliptical band-pass (without margin) limitation on lower freq");
+
+n = 2
+Wn =
+
+   6.2046e+04   6.3627e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1801.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 19
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = [9875 10126.5823];
+ fstop = [9000 10656];
+ Rpass = 3;
+ Rstop = 40;
+ fcenter = sqrt (fpass(1) * fpass(2));
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "s");
+ f = 5000:15000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [f(2)    , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m", outline_bp_stop_x, outline_bp_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("6th order analog elliptical band-pass (just exceeds 4th order i.e. large margin) limitation on upper freq");
+
+n = 3
+Wn =
+
+   6.2046e+04   6.3627e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_1901.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 20
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fpass = [9875 10126.5823];
+ fstop = [9385 12000];
+ Rpass = 3;
+ Rstop = 40;
+ fcenter = sqrt (fpass(1) * fpass(2));
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "s");
+ f = 5000:15000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_bp_pass_x = [fpass(1), fpass(1), fpass(2), fpass(2)];
+ outline_bp_pass_y = [-80     , -Rpass  , -Rpass  , -80];
+ outline_bp_stop_x = [f(2)    , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_bp_stop_y = [-Rstop  , -Rstop  , 0       , 0       , -Rstop  , -Rstop];
+ hold on
+ plot (outline_bp_pass_x, outline_bp_pass_y, "m", outline_bp_stop_x, outline_bp_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("6th order analog elliptical band-pass (just exceeds 4th order i.e. large margin) limitation on lower freq");
+
+n = 3
+Wn =
+
+   6.2046e+04   6.3627e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_2001.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 21
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = [9875 10126.5823];
+ fpass = [9000 10657];
+ Rpass = 3;
+ Rstop = 40;
+ fcenter = sqrt (fpass(1) * fpass(2));
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "stop", "s");
+ f = 5000:15000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_notch_pass_x_a = [f(2)    , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [f(2)    , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0       , 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m", outline_notch_pass_x_b, outline_notch_pass_y_b, "m", outline_notch_stop_x, outline_notch_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("4th order analog elliptical notch (without margin) limit on upper freq");
+
+n = 2
+Wn =
+
+   5.8958e+04   6.6960e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_2101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 22
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = [9875 10126.5823];
+ fpass = [9384 12000];
+ Rpass = 3;
+ Rstop = 40;
+ fcenter = sqrt (fpass(1) * fpass(2));
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "stop", "s");
+ f = 5000:15000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_notch_pass_x_a = [f(2)    , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [f(2)    , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0       , 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m", outline_notch_pass_x_b, outline_notch_pass_y_b, "m", outline_notch_stop_x, outline_notch_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("4th order analog elliptical notch (without margin) limit on lower freq");
+
+n = 2
+Wn =
+
+   5.8961e+04   6.6956e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_2201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 23
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = [9875 10126.5823];
+ fpass = [9000 10656];
+ Rpass = 3;
+ Rstop = 40;
+ fcenter = sqrt (fpass(1) * fpass(2));
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "stop", "s");
+ f = 5000:15000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_notch_pass_x_a = [f(2)    , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [f(2)    , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0       , 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m", outline_notch_pass_x_b, outline_notch_pass_y_b, "m", outline_notch_stop_x, outline_notch_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("6th order analog elliptical notch (just exceeds 4th order) limit on upper freq");
+
+n = 3
+Wn =
+
+   5.8964e+04   6.6954e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_2301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 24
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ fstop = [9875 10126.5823];
+ fpass = [9385 12000];
+ Rpass = 3;
+ Rstop = 40;
+ fcenter = sqrt (fpass(1) * fpass(2));
+ Wpass = 2*pi * fpass;
+ Wstop = 2*pi * fstop;
+ [n, Wn] = ellipord (Wpass, Wstop, Rpass, Rstop, "s")
+ [b, a] = ellip (n, Rpass, Rstop, Wn, "stop", "s");
+ f = 5000:15000;
+ W = 2*pi * f;
+ H = freqs (b, a, W);
+ plot (f, 20 * log10 (abs (H)))
+ outline_notch_pass_x_a = [f(2)    , fpass(1), fpass(1)];
+ outline_notch_pass_x_b = [fpass(2), fpass(2), max(f)];
+ outline_notch_pass_y_a = [-Rpass  , -Rpass  , -80];
+ outline_notch_pass_y_b = [-80     , -Rpass  , -Rpass];
+ outline_notch_stop_x   = [f(2)    , fstop(1), fstop(1), fstop(2), fstop(2), max(f)];
+ outline_notch_stop_y   = [0       , 0       , -Rstop  , -Rstop  , 0       , 0 ];
+ hold on
+ plot (outline_notch_pass_x_a, outline_notch_pass_y_a, "m", outline_notch_pass_x_b, outline_notch_pass_y_b, "m", outline_notch_stop_x, outline_notch_stop_y, "m")
+ xlim ([f(1), f(end)]);
+ ylim ([-80, 0]);
+ grid on
+ xlabel ("Frequency (Hz)");
+ ylabel ("Attenuation (dB)");
+ title ("6th order analog elliptical notch (just exceeds 4th order) limit on lower freq");
+
+n = 3
+Wn =
+
+   5.8968e+04   6.6949e+04
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ellipord_2401.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

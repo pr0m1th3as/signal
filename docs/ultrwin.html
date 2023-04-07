@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: ultrwin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Window Functions">
+                    <i class="fas fa-list-alt"></i>
+                    Window Functions
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>ultrwin</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [<var>w</var>, <var>xmu</var>] = <b>ultrwin</b><i> (<var>m</var>, <var>mu</var>, <var>beta</var>)</i></dt>
+<dt><u>Function File:</u> [<var>w</var>, <var>xmu</var>] = <b>ultrwin</b><i> (<var>m</var>, <var>mu</var>, <var>att</var>, &quot;att&quot;)</i></dt>
+<dt><u>Function File:</u> [<var>w</var>, <var>xmu</var>] = <b>ultrwin</b><i> (<var>m</var>, <var>mu</var>, <var>latt</var>, &quot;latt&quot;)</i></dt>
+<dt><u>Function File:</u> <var>w</var> = <b>ultrwin</b><i> (<var>m</var>, <var>mu</var>, <var>xmu</var>, &quot;xmu&quot;)</i></dt>
+</dl>
+<p> Return the coefficients of an Ultraspherical window of length <var>m</var>.
+ The parameter <var>mu</var> controls the window&rsquo;s Fourier transform&rsquo;s side-lobe
+ to side-lobe ratio, and the third given parameter controls the transform&rsquo;s
+ main-lobe width/side-lobe-ratio; normalize <var>w</var> such that the central
+ coefficient(s) value is unitary.
+</p>
+<div class="ms-5">
+<p> By default, the third parameter is <var>beta</var>, which sets the main lobe width
+ to <var>beta</var> times that of a rectangular window.  Alternatively, giving
+ <var>att</var> or <var>latt</var> sets the ripple ratio at the first or last side-lobe
+ respectively, or giving <var>xmu</var> sets the (un-normalized) window&rsquo;s Fourier
+ transform according to its canonical definition:
+</p>
+<pre class="verbatim">              (MU)
+      W(k) = C   [ XMU cos(pi k/M) ],  k = 0, 1, ..., M-1,
+              M-1
+ </pre>
+<p> where C is the Ultraspherical (a.k.a. Gegenbauer) polynomial, which can be
+ defined using the recurrence relationship:
+</p>
+<pre class="verbatim">       (l)    1                  (l)                    (l)
+      C (x) = - [ 2x(m + l - 1) C   (x) - (m + 2l - 2) C   (x) ]
+       m      m                  m-1                    m-2
+
+                                 (l)        (l)
+      for m an integer &gt; 1, and C (x) = 1, C (x) = 2lx.
+                                 0          1
+ </pre>
+<p> For given <var>beta</var>, <var>att</var>, or <var>latt</var>, the corresponding
+ (determined) value of <var>xmu</var> is also returned.
+</p>
+<p> The Dolph-Chebyshev and Saramaki windows are special cases of the
+ Ultraspherical window, with <var>mu</var> set to 0 and 1 respectively.  Note that
+ when not giving <var>xmu</var>, stability issues may occur with <var>mu</var> &lt;= -1.5.
+ For further information about the window, see
+</p>
+ <ul>
+<li>
+ Kabal, P., 2009: Time Windows for Linear Prediction of Speech.
+ Technical Report, Dept. Elec. &amp; Comp. Eng., McGill University.
+ </li><li>
+ Bergen, S., Antoniou, A., 2004: Design of Ultraspherical Window
+ Functions with Prescribed Spectral Characteristics. Proc. JASP, 13/13,
+ pp. 2053-2065.
+ </li><li>
+ Streit, R., 1984: A two-parameter family of weights for nonrecursive
+ digital filters and antennas. Trans. ASSP, 32, pp. 108-118.
+ </li></ul>
+<p> <strong>See also: </strong>
+  <a href="chebwin.html">chebwin</a>, 
+  <a href="kaiser.html">kaiser</a>
+</p>
+</div>
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ w=ultrwin(120, -1, 40, "l"); [W,f]=freqz(w); clf
+ subplot(2,1,1); plot(f/pi, 20*log10(W/abs(W(1)))); grid; axis([0 1 -90 0])
+ subplot(2,1,2); plot(0:length(w)-1, w); grid
+ %-----------------------------------------------------------
+ % Figure shows an Ultraspherical window with MU=-1, LATT=40:
+ % frequency domain above, time domain below.
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ultrwin_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 2
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ c="krbm"; clf; subplot(2, 1, 1)
+ for beta=2:5
+   w=ultrwin(80, -.5, beta); [W,f]=freqz(w);
+   plot(f/pi, 20*log10(W/abs(W(1))), c(1+mod(beta, length(c)))); hold on
+ end; grid; axis([0 1 -140 0]); hold off
+ subplot(2, 1, 2);
+ for n=2:10
+   w=ultrwin(n*20, 1, 3); [W,f]=freqz(w,1,2^11);
+   plot(f/pi, 20*log10(W/abs(W(1))), c(1+mod(n, length(c)))); hold on
+ end; grid; axis([0 .2 -100 0]); hold off
+ %--------------------------------------------------
+ % Figure shows transfers of Ultraspherical windows:
+ % above: varying BETA with fixed N & MU,
+ % below: varying N with fixed MU & BETA.
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ultrwin_201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 3
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ c="krbm"; clf; subplot(2, 1, 1)
+ for j=0:4
+   w=ultrwin(80, j*.6-1.2, 50, "a"); [W,f]=freqz(w);
+   plot(f/pi, 20*log10(W/abs(W(1))), c(1+mod(j, length(c)))); hold on
+ end; grid; axis([0 1 -100 0]); hold off
+ subplot(2, 1, 2);
+ for j=4:-1:0
+   w=ultrwin(80, j*.75-1.5, 50, "l"); [W,f]=freqz(w);
+   plot(f/pi, 20*log10(W/abs(W(1))), c(1+mod(j, length(c)))); hold on
+ end; grid; axis([0 1 -100 0]); hold off
+ %--------------------------------------------------
+ % Figure shows transfers of Ultraspherical windows:
+ % above: varying MU with fixed N & ATT,
+ % below: varying MU with fixed N & LATT.
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ultrwin_301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 4
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ clf; a=[.8 2 -115 5]; fc=1.1/pi; l="labelxy";
+ for k=1:3; switch (k); case 1; w=kaiser(L=159, 7.91);
+   case 2; w=ultrwin(L=165, 0, 2.73); case 3; w=ultrwin(L=153, .5, 2.6); end
+   subplot(3, 1, 4-k); f=[1:(L-1)/2]*pi;f=sin(fc*f)./f; f=[fliplr(f) fc f]';
+   [h,f]=freqz(w.*f,1,2^14); plot(f,20*log10(h)); grid; axis(a,l); l="labely";
+ end
+ %-----------------------------------------------------------
+ % Figure shows example lowpass filter design (Fp=1, Fs=1.2
+ % rad/s, att=80 dB) and comparison with other windows.  From
+ % top to bottom: Ultraspherical, Dolph-Chebyshev, and Kaiser
+ % windows, with lengths 153, 165, and 159 respectively.
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/ultrwin_401.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

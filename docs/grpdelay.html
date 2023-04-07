@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: grpdelay</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Filter Analysis">
+                    <i class="fas fa-list-alt"></i>
+                    Filter Analysis
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>grpdelay</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [<var>g</var>, <var>w</var>] = <b>grpdelay</b><i> (<var>b</var>)</i></dt>
+<dt><u>Function File:</u> [<var>g</var>, <var>w</var>] = <b>grpdelay</b><i> (<var>b</var>, <var>a</var>)</i></dt>
+<dt><u>Function File:</u> [<var>g</var>, <var>w</var>] = <b>grpdelay</b><i> (&hellip;, <var>n</var>)</i></dt>
+<dt><u>Function File:</u> [<var>g</var>, <var>w</var>] = <b>grpdelay</b><i> (&hellip;, <var>n</var>, &quot;whole&quot;)</i></dt>
+<dt><u>Function File:</u> [<var>g</var>, <var>f</var>] = <b>grpdelay</b><i> (&hellip;, <var>n</var>, <var>Fs</var>)</i></dt>
+<dt><u>Function File:</u> [<var>g</var>, <var>f</var>] = <b>grpdelay</b><i> (&hellip;, <var>n</var>, &quot;whole&quot;, <var>Fs</var>)</i></dt>
+<dt><u>Function File:</u> [<var>g</var>, <var>w</var>] = <b>grpdelay</b><i> (&hellip;, <var>w</var>)</i></dt>
+<dt><u>Function File:</u> [<var>g</var>, <var>f</var>] = <b>grpdelay</b><i> (&hellip;, <var>f</var>, <var>Fs</var>)</i></dt>
+<dt><u>Function File:</u> <b>grpdelay</b><i> (&hellip;)</i></dt>
+</dl>
+<p> Compute the group delay of a filter.
+</p>
+<div class="ms-5">
+<p> [g, w] = grpdelay(b)
+   returns the group delay g of the FIR filter with coefficients b.
+   The response is evaluated at 512 angular frequencies between 0 and
+   pi. w is a vector containing the 512 frequencies.
+   The group delay is in units of samples.  It can be converted
+   to seconds by multiplying by the sampling period (or dividing by
+   the sampling rate fs).
+</p>
+<p> [g, w] = grpdelay(b,a)
+   returns the group delay of the rational IIR filter whose numerator
+   has coefficients b and denominator coefficients a.
+</p>
+<p> [g, w] = grpdelay(b,a,n)
+   returns the group delay evaluated at n angular frequencies.  For fastest
+   computation n should factor into a small number of small primes.
+</p>
+<p> [g, w] = grpdelay(b,a,n,&rsquo;whole&rsquo;)
+   evaluates the group delay at n frequencies between 0 and 2*pi.
+</p>
+<p> [g, f] = grpdelay(b,a,n,Fs)
+   evaluates the group delay at n frequencies between 0 and Fs/2.
+</p>
+<p> [g, f] = grpdelay(b,a,n,&rsquo;whole&rsquo;,Fs)
+   evaluates the group delay at n frequencies between 0 and Fs.
+</p>
+<p> [g, w] = grpdelay(b,a,w)
+   evaluates the group delay at frequencies w (radians per sample).
+</p>
+<p> [g, f] = grpdelay(b,a,f,Fs)
+   evaluates the group delay at frequencies f (in Hz).
+</p>
+<p> grpdelay(...)
+   plots the group delay vs. frequency.
+</p>
+<p> If the denominator of the computation becomes too small, the group delay
+ is set to zero.  (The group delay approaches infinity when
+ there are poles or zeros very close to the unit circle in the z plane.)
+</p>
+<p> Theory: group delay, g(w) = -d/dw [arg{H(e^jw)}],  is the rate of change of
+ phase with respect to frequency.  It can be computed as:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example">               d/dw H(e^-jw)
+        g(w) = -------------
+                 H(e^-jw)
+ </pre></td></tr></table>
+
+<p> where
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example">         H(z) = B(z)/A(z) = sum(b_k z^k)/sum(a_k z^k).
+ </pre></td></tr></table>
+
+<p> By the quotient rule,
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example">                    A(z) d/dw B(z) - B(z) d/dw A(z)
+        d/dw H(z) = -------------------------------
+                               A(z) A(z)
+ </pre></td></tr></table>
+
+<p> Substituting into the expression above yields:
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example">                A dB - B dA
+        g(w) =  ----------- = dB/B - dA/A
+                    A B
+ </pre></td></tr></table>
+
+<p> Note that,
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example">        d/dw B(e^-jw) = sum(k b_k e^-jwk)
+        d/dw A(e^-jw) = sum(k a_k e^-jwk)
+ </pre></td></tr></table>
+
+<p> which is just the FFT of the coefficients multiplied by a ramp.
+</p>
+<p> As a further optimization when nfft&gt;&gt;length(a), the IIR filter (b,a)
+ is converted to the FIR filter conv(b,fliplr(conj(a))).
+ For further details, see
+ http://ccrma.stanford.edu/~jos/filters/Numerical_Computation_Group_Delay.html
+ </p>
+</div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+ % 1
+ %--------------------------------------------------------------
+ % From Oppenheim and Schafer, a single zero of radius r=0.9 at
+ % angle pi should have a group delay of about -9 at 1 and 1/2
+ % at zero and 2*pi.
+ %--------------------------------------------------------------
+ grpdelay([1 0.9],[],512,'whole',1);
+ hold on;
+ xlabel('Normalized Frequency (cycles/sample)');
+ stem([0, 0.5, 1],[0.5, -9, 0.5],'*b;target;');
+ hold off;
+ title ('Zero at z = -0.9');
+
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/grpdelay_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 2
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+ % 2
+ %--------------------------------------------------------------
+ % confirm the group delays approximately meet the targets
+ % don't worry that it is not exact, as I have not entered
+ % the exact targets.
+ %--------------------------------------------------------------
+ b = poly([1/0.9*exp(1i*pi*0.2), 0.9*exp(1i*pi*0.6)]);
+ a = poly([0.9*exp(-1i*pi*0.6), 1/0.9*exp(-1i*pi*0.2)]);
+ grpdelay(b,a,512,'whole',1);
+ hold on;
+ xlabel('Normalized Frequency (cycles/sample)');
+ stem([0.1, 0.3, 0.7, 0.9], [9, -9, 9, -9],'*b;target;');
+ hold off;
+ title ('Two Zeros and Two Poles');
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/grpdelay_201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 3
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+ % 3
+ %--------------------------------------------------------------
+ % fir lowpass order 40 with cutoff at w=0.3 and details of
+ % the transition band [.3, .5]
+ %--------------------------------------------------------------
+ subplot(211);
+ Fs = 8000;     % sampling rate
+ Fc = 0.3*Fs/2; % lowpass cut-off frequency
+ nb = 40;
+ b = fir1(nb,2*Fc/Fs); % matlab freq normalization: 1=Fs/2
+ [H,f] = freqz(b,1,[],1);
+ [gd,f] = grpdelay(b,1,[],1);
+ plot(f,20*log10(abs(H)));
+ title(sprintf('b = fir1(%d,2*%d/%d);',nb,Fc,Fs));
+ xlabel('Normalized Frequency (cycles/sample)');
+ ylabel('Amplitude Response (dB)');
+ grid('on');
+ subplot(212);
+ del = nb/2; % should equal this
+ plot(f,gd);
+ title(sprintf('Group Delay in Pass-Band (Expect %d samples)',del));
+ ylabel('Group Delay (samples)');
+ axis([0, 0.2, del-1, del+1]);
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/grpdelay_301.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 4
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+ % 4
+ %--------------------------------------------------------------
+ % IIR bandstop filter has delays at [1000, 3000]
+ %--------------------------------------------------------------
+ Fs = 8000;
+ [b, a] = cheby1(3, 3, 2*[1000, 3000]/Fs, 'stop');
+ [H,f] = freqz(b,a,[],Fs);
+ [gd,f] = grpdelay(b,a,[],Fs);
+ subplot(211);
+ plot(f,abs(H));
+ title('[b,a] = cheby1(3, 3, 2*[1000, 3000]/Fs, "stop");');
+ xlabel('Frequency (Hz)');
+ ylabel('Amplitude Response');
+ grid('on');
+ subplot(212);
+ plot(f,gd);
+ title('[gd,f] = grpdelay(b,a,[],Fs);');
+ ylabel('Group Delay (samples)');
+
+warning: grpdelay: setting group delay to 0 at singularity
+warning: called from
+    grpdelay at line 191 column 5
+    build_DEMOS at line 94 column 11
+    function_texi2html at line 286 column 14
+    package_texi2html at line 278 column 7
+
+warning: grpdelay: setting group delay to 0 at singularity
+warning: called from
+    grpdelay at line 191 column 5
+    build_DEMOS at line 94 column 11
+    function_texi2html at line 286 column 14
+    package_texi2html at line 278 column 7
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/grpdelay_401.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

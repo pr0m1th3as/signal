@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: specgram</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Signals">
+                    <i class="fas fa-list-alt"></i>
+                    Signals
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>specgram</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> <b>specgram</b><i> (<var>x</var>)</i></dt>
+<dt><u>Function File:</u> <b>specgram</b><i> (<var>x</var>, <var>n</var>)</i></dt>
+<dt><u>Function File:</u> <b>specgram</b><i> (<var>x</var>, <var>n</var>, <var>Fs</var>)</i></dt>
+<dt><u>Function File:</u> <b>specgram</b><i> (<var>x</var>, <var>n</var>, <var>Fs</var>, <var>window</var>)</i></dt>
+<dt><u>Function File:</u> <b>specgram</b><i> (<var>x</var>, <var>n</var>, <var>Fs</var>, <var>window</var>, <var>overlap</var>)</i></dt>
+<dt><u>Function File:</u> [<var>S</var>, <var>f</var>, <var>t</var>] = <b>specgram</b><i> (&hellip;)</i></dt>
+</dl>
+
+<p> Generate a spectrogram for the signal <var>x</var>.  The signal is chopped into
+ overlapping segments of length <var>n</var>, and each segment is windowed and
+ transformed into the frequency domain using the FFT.  The default segment
+ size is 256.  If <var>fs</var> is given, it specifies the sampling rate of the
+ input signal.  The argument <var>window</var> specifies an alternate window to
+ apply rather than the default of <code>hanning (<var>n</var>)</code>.  The argument
+ <var>overlap</var> specifies the number of samples overlap between successive
+ segments of the input signal.  The default overlap is
+ <code>length (<var>window</var>)/2</code>.
+</p>
+<div class="ms-5">
+<p> If no output arguments are given, the spectrogram is displayed.  Otherwise,
+ <var>S</var> is the complex output of the FFT, one row per slice, <var>f</var> is the
+ frequency indices corresponding to the rows of <var>S</var>, and <var>t</var> is the
+ time indices corresponding to the columns of <var>S</var>.
+</p>
+<p> Example:
+ </p><table><tr><td>&nbsp;</td><td><pre class="example"> </pre><pre class="example">    x = chirp([0:0.001:2],0,2,500);  # freq. sweep from 0-500 over 2 sec.
+    Fs=1000;                  # sampled every 0.001 sec so rate is 1 kHz
+    step=ceil(20*Fs/1000);    # one spectral slice every 20 ms
+    window=ceil(100*Fs/1000); # 100 ms data window
+    specgram(x, 2^nextpow2(window), Fs, window, window-step);
+
+    ## Speech spectrogram
+    [x, Fs] = auload(file_in_loadpath(&quot;sample.wav&quot;)); # audio file
+    step = fix(5*Fs/1000);     # one spectral slice every 5 ms
+    window = fix(40*Fs/1000);  # 40 ms data window
+    fftn = 2^nextpow2(window); # next highest power of 2
+    [S, f, t] = specgram(x, fftn, Fs, window, window-step);
+    S = abs(S(2:fftn*4000/Fs,:)); # magnitude in range 0&lt;f&lt;=4000 Hz.
+    S = S/max(S(:));           # normalize magnitude so that max is 0 dB.
+    S = max(S, 10^(-40/10));   # clip below -40 dB.
+    S = min(S, 10^(-3/10));    # clip above -3 dB.
+    imagesc (t, f, log(S));    # display in log scale
+    set (gca, &quot;ydir&quot;, &quot;normal&quot;); # put the 'y' direction in the correct direction
+ </pre><pre class="example"> </pre></td></tr></table>
+
+<p> The choice of window defines the time-frequency resolution.  In
+ speech for example, a wide window shows more harmonic detail while a
+ narrow window averages over the harmonic detail and shows more
+ formant structure. The shape of the window is not so critical so long
+ as it goes gradually to zero on the ends.
+</p>
+<p> Step size (which is window length minus overlap) controls the
+ horizontal scale of the spectrogram. Decrease it to stretch, or
+ increase it to compress. Increasing step size will reduce time
+ resolution, but decreasing it will not improve it much beyond the
+ limits imposed by the window size (you do gain a little bit,
+ depending on the shape of your window, as the peak of the window
+ slides over peaks in the signal energy).  The range 1-5 msec is good
+ for speech.
+</p>
+<p> FFT length controls the vertical scale.  Selecting an FFT length
+ greater than the window length does not add any information to the
+ spectrum, but it is a good way to interpolate between frequency
+ points which can make for prettier spectrograms.
+</p>
+<p> After you have generated the spectral slices, there are a number of
+ decisions for displaying them.  First the phase information is
+ discarded and the energy normalized:
+</p>
+<p>     S = abs(S); S = S/max(S(:));
+</p>
+<p> Then the dynamic range of the signal is chosen.  Since information in
+ speech is well above the noise floor, it makes sense to eliminate any
+ dynamic range at the bottom end.  This is done by taking the max of
+ the magnitude and some minimum energy such as minE=-40dB. Similarly,
+ there is not much information in the very top of the range, so
+ clipping to a maximum energy such as maxE=-3dB makes sense:
+</p>
+<p>     S = max(S, 10^(minE/10)); S = min(S, 10^(maxE/10));
+</p>
+<p> The frequency range of the FFT is from 0 to the Nyquist frequency of
+ one half the sampling rate.  If the signal of interest is band
+ limited, you do not need to display the entire frequency range. In
+ speech for example, most of the signal is below 4 kHz, so there is no
+ reason to display up to the Nyquist frequency of 10 kHz for a 20 kHz
+ sampling rate.  In this case you will want to keep only the first 40%
+ of the rows of the returned S and f.  More generally, to display the
+ frequency range [minF, maxF], you could use the following row index:
+</p>
+<p>     idx = (f &gt;= minF &amp; f &lt;= maxF);
+</p>
+<p> Then there is the choice of colormap.  A brightness varying colormap
+ such as copper or bone gives good shape to the ridges and valleys. A
+ hue varying colormap such as jet or hsv gives an indication of the
+ steepness of the slopes.  The final spectrogram is displayed in log
+ energy scale and by convention has low frequencies on the bottom of
+ the image:
+</p>
+<p>     imagesc(t, f, flipud(log(S(idx,:))));
+ </p>
+</div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ Fs=1000;
+ x = chirp([0:1/Fs:2],0,2,500);  # freq. sweep from 0-500 over 2 sec.
+ step=ceil(20*Fs/1000);    # one spectral slice every 20 ms
+ window=ceil(100*Fs/1000); # 100 ms data window
+
+ ## test of automatic plot
+ [S, f, t] = specgram(x);
+ specgram(x, 2^nextpow2(window), Fs, window, window-step);
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/specgram_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

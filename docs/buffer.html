@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: buffer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Signals">
+                    <i class="fas fa-list-alt"></i>
+                    Signals
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>buffer</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> <var>y</var> = <b>buffer</b><i> (<var>x</var>, <var>n</var>, <var>p</var>, <var>opt</var>)</i></dt>
+<dt><u>Function File:</u> [<var>y</var>, <var>z</var>, <var>opt</var>] = <b>buffer</b><i> (&hellip;)</i></dt>
+</dl>
+<p> Buffer a signal into a data frame. The arguments to <code>buffer</code> are
+</p>
+<div class="ms-5">
+ <dl compact="compact">
+<dt> <var>x</var></dt>
+</dl>
+<p> The data to be buffered.
+</p>
+ </dd>
+<dt> <var>n</var></dt>
+</dl>
+<p> The number of rows in the produced data buffer. This is an positive
+ integer value and must be supplied.
+</p>
+ </dd>
+<dt> <var>p</var></dt>
+</dl>
+<p> An integer less than <var>n</var> that specifies the under- or overlap
+ between column in the data frame. The default value of <var>p</var> is 0.
+</p>
+ </dd>
+<dt> <var>opt</var></dt>
+</dl>
+<p> In the case of an overlap, <var>opt</var> can be either a vector of length
+ <var>p</var> or the string &rsquo;nodelay&rsquo;. If <var>opt</var> is a vector, then the
+ first <var>p</var> entries in <var>y</var> will be filled with these values. If
+ <var>opt</var> is the string &rsquo;nodelay&rsquo;, then the first value of <var>y</var>
+ corresponds to the first value of <var>x</var>.
+</p>
+<p> In the can of an underlap, <var>opt</var> must be an integer between 0 and
+ <code>-<var>p</var></code>. The represents the initial underlap of the first
+ column of <var>y</var>.
+</p>
+<p> The default value for <var>opt</var> the vector <code>zeros (1, <var>p</var>)</code>
+ in the case of an overlap, or 0 otherwise.
+ </p></dd>
+</dl>
+
+<p> In the case of a single output argument, <var>y</var> will be padded with
+ zeros to fill the missing values in the data frame. With two output
+ arguments <var>z</var> is the remaining data that has not been used in the
+ current data frame.
+</p>
+<p> Likewise, the output <var>opt</var> is the overlap, or underlap that might
+ be used for a future call to <code>code</code> to allow continuous buffering.
+ </p>
+</div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

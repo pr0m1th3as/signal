@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: arburg</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#System Identification">
+                    <i class="fas fa-list-alt"></i>
+                    System Identification
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>arburg</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [<var>a</var>, <var>v</var>, <var>k</var>] = <b>arburg</b><i> (<var>x</var>, <var>poles</var>)</i></dt>
+<dt><u>Function File:</u> [<var>a</var>, <var>v</var>, <var>k</var>] = <b>arburg</b><i> (<var>x</var>, <var>poles</var>, <var>criterion</var>)</i></dt>
+</dl>
+
+<p> Calculate coefficients of an autoregressive (AR) model of complex data
+ <var>x</var> using the whitening lattice-filter method of Burg (1968).  The
+ inverse of the model is a moving-average filter which reduces <var>x</var> to
+ white noise.  The power spectrum of the AR model is an estimate of the
+ maximum entropy power spectrum of the data.  The function <code>ar_psd</code>
+ calculates the power spectrum of the AR model.
+</p>
+<div class="ms-5">
+<p> ARGUMENTS:
+ </p><ul>
+<li>
+ <var>x</var>
+ sampled data
+ </li><li>
+ <var>poles</var>
+ number of poles in the AR model or limit to the number of poles if a
+ valid <var>criterion</var> is provided.
+ </li><li>
+ <var>criterion</var>
+ model-selection criterion.  Limits the number of poles so that spurious
+ poles are not added when the whitened data has no more information
+ in it (see Kay &amp; Marple, 1981). Recognized values are
+ &rsquo;AKICc&rsquo; &ndash; approximate corrected Kullback information criterion (recommended),
+ &rsquo;KIC&rsquo;  &ndash; Kullback information criterion
+ &rsquo;AICc&rsquo; &ndash; corrected Akaike information criterion
+ &rsquo;AIC&rsquo;  &ndash; Akaike information criterion
+ &rsquo;FPE&rsquo;  &ndash; final prediction error&quot; criterion
+ The default is to NOT use a model-selection criterion
+ </li></ul>
+
+<p> RETURNED VALUES:
+ </p><ul>
+<li>
+ <var>a</var>
+ list of (P+1) autoregression coefficients; for data input <math>&times;(n)</math> and
+ white noise <math>e(n)</math>, the model is
+
+ <table><tr><td>&nbsp;</td><td><pre class="example"> </pre><pre class="example">                       P+1
+ x(n) = sqrt(v).e(n) + SUM a(k).x(n-k)
+                       k=1
+ </pre><pre class="example"> </pre></td></tr></table>
+
+<p> <var>v</var>
+ mean square of residual noise from the whitening operation of the Burg
+ lattice filter.
+ </p></li><li>
+ <var>k</var>
+ reflection coefficients defining the lattice-filter embodiment of the model
+ </li></ul>
+
+<p> HINTS:
+</p>
+<p>  (1) arburg does not remove the mean from the data.  You should remove
+      the mean from the data if you want a power spectrum.  A non-zero mean
+      can produce large errors in a power-spectrum estimate.  See
+      &quot;help detrend&quot;.
+  (2) If you don&rsquo;t know what the value of &quot;poles&quot; should be, choose the
+      largest (reasonable) value you could want and use the recommended
+      value, criterion=&rsquo;AKICc&rsquo;, so that arburg can find it.
+      E.g. arburg(x,64,&rsquo;AKICc&rsquo;)
+      The AKICc has the least bias and best resolution of the available
+      model-selection criteria.
+  (3) Autoregressive and moving-average filters are stored as polynomials
+      which, in matlab, are row vectors.
+</p>
+<p> NOTE ON SELECTION CRITERION:
+</p>
+<p>   AIC, AICc, KIC and AKICc are based on information theory.  They  attempt
+   to balance the complexity (or length) of the model against how well the
+   model fits the data.  AIC and KIC are biased estimates of the asymmetric
+   and the symmetric Kullback-Leibler divergence respectively.  AICc and
+   AKICc attempt to correct the bias. See reference [4].
+</p>
+
+<p> REFERENCES:
+</p>
+<p> [1] John Parker Burg (1968)
+   &quot;A new analysis technique for time series data&quot;,
+   NATO advanced study Institute on Signal Processing with Emphasis on
+   Underwater Acoustics, Enschede, Netherlands, Aug. 12-23, 1968.
+</p>
+<p> [2] Steven M. Kay and Stanley Lawrence Marple Jr.:
+   &quot;Spectrum analysis &ndash; a modern perspective&quot;,
+   Proceedings of the IEEE, Vol 69, pp 1380-1419, Nov., 1981
+</p>
+<p> [3] William H. Press and Saul A. Teukolsky and William T. Vetterling and
+               Brian P. Flannery
+   &quot;Numerical recipes in C, The art of scientific computing&quot;, 2nd edition,
+   Cambridge University Press, 2002 &mdash; Section 13.7.
+</p>
+<p> [4] Abd-Krim Seghouane and Maiza Bekara
+   &quot;A small sample model selection criterion based on Kullback&rsquo;s symmetric
+   divergence&quot;, IEEE Transactions on Signal Processing,
+   Vol. 52(12), pp 3314-3323, Dec. 2004
+</p>
+<p> <strong>See also: </strong>
+  <a href="ar_psd.html">ar_psd</a>
+</p>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

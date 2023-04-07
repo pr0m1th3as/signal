@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: findpeaks</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Signal Measurement">
+                    <i class="fas fa-list-alt"></i>
+                    Signal Measurement
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>findpeaks</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [<var>pks</var>, <var>loc</var>, <var>extra</var>] = <b>findpeaks</b><i> (<var>data</var>)</i></dt>
+<dt><u>Function File:</u> &hellip; = <b>findpeaks</b><i> (&hellip;, <var>property</var>, <var>value</var>)</i></dt>
+<dt><u>Function File:</u> &hellip; = <b>findpeaks</b><i> (&hellip;, &quot;DoubleSided&quot;)</i></dt>
+</dl>
+<p> Finds peaks on <var>data</var>.
+</p>
+<div class="ms-5">
+<p> Peaks of a positive array of data are defined as local maxima. For
+ double-sided data, they are maxima of the positive part and minima of
+ the negative part. <var>data</var> is expected to be a single column
+ vector.
+</p>
+<p> The function returns the value of <var>data</var> at the peaks in
+ <var>pks</var>. The index indicating their position is returned in
+ <var>loc</var>.
+</p>
+<p> The third output argument is a structure with additional information:
+</p>
+ <dl compact="compact">
+<dt> &quot;parabol&quot;</dt>
+</dl>
+<p> A structure containing the parabola fitted to each returned peak. The
+ structure has two fields, &quot;x&quot; and &quot;pp&quot;. The field
+ &quot;pp&quot; contains the coefficients of the 2nd degree polynomial
+ and &quot;x&quot; the extrema of the interval where it was fitted.
+</p>
+ </dd>
+<dt> &quot;height&quot;</dt>
+</dl>
+<p> The estimated height of the returned peaks (in units of <var>data</var>).
+</p>
+ </dd>
+<dt> &quot;baseline&quot;</dt>
+</dl>
+<p> The height at which the roots of the returned peaks were calculated
+ (in units of <var>data</var>).
+</p>
+ </dd>
+<dt> &quot;roots&quot;</dt>
+</dl>
+<p> The abscissa values (in index units) at which the parabola fitted to
+ each of the returned peaks realizes its width as defined below.
+ </p></dd>
+</dl>
+
+<p> This function accepts property-value pair given in the list below:
+</p>
+ <dl compact="compact">
+<dt> &quot;MinPeakHeight&quot;</dt>
+</dl>
+<p> Minimum peak height (non-negative scalar). Only peaks that exceed this
+ value will be returned. For data taking positive and negative values
+ use the option &quot;DoubleSided&quot;. Default value <code>eps</code>.
+</p>
+ </dd>
+<dt> &quot;MinPeakDistance&quot;</dt>
+</dl>
+<p> Minimum separation between (positive integer). Peaks separated by
+ less than this distance are considered a single peak. This distance
+ is also used to fit a second order polynomial to the peaks to
+ estimate their width, therefore it acts as a smoothing parameter.
+ The neighborhood size is equal to the value of &quot;MinPeakDistance&quot;.
+ Default value 1.
+</p>
+ </dd>
+<dt> &quot;MinPeakWidth&quot;</dt>
+</dl>
+<p> Minimum width of peaks (positive integer). The width of the peaks is
+ estimated using a parabola fitted to the neighborhood of each peak.
+ The width is caulculated with the formula 
+ </p><p> a * (width - x0)^2 = 1
+ </p><p> where a is the the concavity of the parabola and x0 its vertex.
+ Default value 1.
+</p>
+ </dd>
+<dt> &quot;MaxPeakWidth&quot;</dt>
+</dl>
+<p> Maximum width of peaks (positive integer).
+ Default value <code>Inf</code>.
+</p>
+ </dd>
+<dt> &quot;DoubleSided&quot;</dt>
+</dl>
+<p> Tells the function that data takes positive and negative values. The
+ base-line for the peaks is taken as the mean value of the function.
+ This is equivalent as passing the absolute value of the data after
+ removing the mean.
+ </p></dd>
+</dl>
+
+<p> Run <code>demo findpeaks</code> to see some examples.
+ </p>
+</div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 1
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ t = 2*pi*linspace(0,1,1024)';
+ y = sin(3.14*t) + 0.5*cos(6.09*t) + 0.1*sin(10.11*t+1/6) + 0.1*sin(15.3*t+1/3);
+
+ data1 = abs(y); # Positive values
+ [pks idx] = findpeaks(data1);
+
+ data2 = y; # Double-sided
+ [pks2 idx2] = findpeaks(data2,"DoubleSided");
+ [pks3 idx3] = findpeaks(data2,"DoubleSided","MinPeakHeight",0.5);
+
+ subplot(1,2,1)
+ plot(t,data1,t(idx),data1(idx),'xm')
+ axis tight
+ subplot(1,2,2)
+ plot(t,data2,t(idx2),data2(idx2),"xm;>2*std;",t(idx3),data2(idx3),"or;>0.1;")
+ axis tight
+ legend("Location","NorthOutside","Orientation","horizontal")
+
+ #----------------------------------------------------------------------------
+ # Finding the peaks of smooth data is not a big deal!
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/findpeaks_101.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-xl my-4">
+          <div class="card rounded">
+            <div class="card-header card-header-mod">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+                  <h3 class="d-inline-block mr-2">
+                  Example: 2
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="container bg-light">
+                <div class="row">
+                  <table><tbody><tr>
+                    <td>&nbsp;</td>
+                    <td><pre class="example">
+
+ t = 2*pi*linspace(0,1,1024)';
+ y = sin(3.14*t) + 0.5*cos(6.09*t) + 0.1*sin(10.11*t+1/6) + 0.1*sin(15.3*t+1/3);
+
+ data = abs(y + 0.1*randn(length(y),1)); # Positive values + noise
+ [pks idx] = findpeaks(data,"MinPeakHeight",1);
+
+ dt = t(2)-t(1);
+ [pks2 idx2] = findpeaks(data,"MinPeakHeight",1,...
+                              "MinPeakDistance",round(0.5/dt));
+
+ subplot(1,2,1)
+ plot(t,data,t(idx),data(idx),'or')
+ subplot(1,2,2)
+ plot(t,data,t(idx2),data(idx2),'or')
+
+ #----------------------------------------------------------------------------
+ # Noisy data may need tuning of the parameters. In the 2nd example,
+ # MinPeakDistance is used as a smoother of the peaks.
+
+                    </pre></td></tr></tbody>
+                  </table>
+                  <div class="text-center">
+                    <img src="assets/findpeaks_201.png" class="rounded img-thumbnail" alt="plotted figure">
+                  </div><p></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
