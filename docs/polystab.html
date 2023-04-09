@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Signal Processing: dwt</title>
+    <title>Signal Processing: polystab</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -35,9 +35,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html#Transforms">
+                  <a class="nav-link" href="index.html#Filter Conversion">
                     <i class="fas fa-list-alt"></i>
-                    Transforms
+                    Filter Conversion
                   </a>
                 </li>
                 <li class="nav-item">
@@ -64,54 +64,23 @@
           <div class="row d-flex flex-wrap align-items-center">
             <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
               <h3 class="d-inline-block mr-2">
-              Function&nbsp;Reference: <b><code>dwt</code></b>
+              Function&nbsp;Reference: <b><code>polystab</code></b>
               </h3>
             </div>
           </div>
         </div>
         <div class="card-body">
 <dl>
-<dt><u>Function File:</u> [<var>u</var>, <var>v</var>] = <b>dwt</b><i> (<var>x</var>, <var>wname</var>)</i></dt>
-<dt><u>Function File:</u> [<var>u</var>, <var>v</var>] = <b>dwt</b><i> (<var>x</var>, <var>Hp</var>, <var>Gp</var>)</i></dt>
-<dt><u>Function File:</u> [<var>u</var>, <var>v</var>] = <b>dwt</b><i> (<var>x</var>, <var>Hp</var>, <var>Gp</var>, &hellip;)</i></dt>
-</dl>
-<p> Discrete wavelet transform (1D).
-</p> <div class="ms-5">
-
-<p> <strong>Inputs</strong>
- </p><dl compact="compact">
-<dt> <var>x</var></dt>
-</dl>
-<p> Signal vector.
- </p></dd>
-<dt> <var>wname</var></dt>
-</dl>
-<p> Wavelet name.
- </p></dd>
-<dt> <var>Hp</var></dt>
-</dl>
-<p> Coefficients of low-pass decomposition <acronym>FIR</acronym> filter.
- </p></dd>
-<dt> <var>Gp</var></dt>
-</dl>
-<p> Coefficients of high-pass decomposition <acronym>FIR</acronym> filter.
- </p></dd>
+<dt><u>Function File:</u> <var>b</var> = <b>polystab</b><i> (<var>a</var>)</i></dt>
 </dl>
 
-<p> <strong>Outputs</strong>
- </p><dl compact="compact">
-<dt> <var>u</var></dt>
-</dl>
-<p> Signal vector of average, approximation.
- </p></dd>
-<dt> <var>v</var></dt>
-</dl>
-<p> Signal vector of difference, detail.
- </p></dd>
-</dl>
+<p> Stabilize the polynomial transfer function by replacing all roots
+ outside the unit circle with their reflection inside the unit circle.
+</p>
+<div class="ms-5">
 
 <p><strong>Source Code: </strong>
-  <a href="https://github.com/pr0m1th3as/signal/tree/main/inst/dwt.m">dwt</a>
+  <a href="https://github.com/pr0m1th3as/signal/tree/main/inst/polystab.m">polystab</a>
 </div>
 
 

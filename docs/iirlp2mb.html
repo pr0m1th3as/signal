@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Signal Processing: dwt</title>
+    <title>Signal Processing: iirlp2mb</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -35,9 +35,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html#Transforms">
+                  <a class="nav-link" href="index.html#IIR Filter Design">
                     <i class="fas fa-list-alt"></i>
-                    Transforms
+                    IIR Filter Design
                   </a>
                 </li>
                 <li class="nav-item">
@@ -64,54 +64,50 @@
           <div class="row d-flex flex-wrap align-items-center">
             <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
               <h3 class="d-inline-block mr-2">
-              Function&nbsp;Reference: <b><code>dwt</code></b>
+              Function&nbsp;Reference: <b><code>iirlp2mb</code></b>
               </h3>
             </div>
           </div>
         </div>
         <div class="card-body">
 <dl>
-<dt><u>Function File:</u> [<var>u</var>, <var>v</var>] = <b>dwt</b><i> (<var>x</var>, <var>wname</var>)</i></dt>
-<dt><u>Function File:</u> [<var>u</var>, <var>v</var>] = <b>dwt</b><i> (<var>x</var>, <var>Hp</var>, <var>Gp</var>)</i></dt>
-<dt><u>Function File:</u> [<var>u</var>, <var>v</var>] = <b>dwt</b><i> (<var>x</var>, <var>Hp</var>, <var>Gp</var>, &hellip;)</i></dt>
+<dt><u>Function File:</u> [<var>Num</var>, <var>Den</var>, <var>AllpassNum</var>, <var>AllpassDen</var>] = <b>iirlp2mb</b><i> (<var>B</var>, <var>A</var>, <var>Wo</var>, <var>Wt</var>)</i></dt>
+<dt><u>Function File:</u> [<var>Num</var>, <var>Den</var>, <var>AllpassNum</var>, <var>AllpassDen</var>] = <b>iirlp2mb</b><i> (<var>B</var>, <var>A</var>, <var>Wo</var>, <var>Wt</var>, <var>Pass</var>)</i></dt>
 </dl>
-<p> Discrete wavelet transform (1D).
-</p> <div class="ms-5">
+<p> IIR Low Pass Filter to Multiband Filter Transformation
+</p>
+<div class="ms-5">
+ <table>
+<thead><tr><th width="30%">Input Arguments</th><th width="2%"></th><th width="68%">Description</th></tr></thead>
+<tr><td width="30%"><var>Num</var>, <var>Den</var></td><td width="2%"></td><td width="68%">numerator,denominator of the transformed filter</td></tr>
+<tr><td width="30%"><var>AllpassNum</var>, <var>AllpassDen</var></td><td width="2%"></td><td width="68%">numerator,denominator of allpass transform</td></tr>
+<tr><td width="30%"><var>B</var>, <var>A</var></td><td width="2%"></td><td width="68%">numerator,denominator of prototype low pass filter</td></tr>
+<tr><td width="30%"><var>Wo</var></td><td width="2%"></td><td width="68%">normalized_angular_frequency/pi to be transformed</td></tr>
+<tr><td width="30%"><var>Wt</var></td><td width="2%"></td><td width="68%">[phi=normalized_angular_frequencies]/pi target vector</td></tr>
+<tr><td width="30%"><var>Pass</var></td><td width="2%"></td><td width="68%">This parameter may have values &rsquo;<code>&quot;pass&quot;</code> or <code>&quot;stop&quot;</code>.  If not
+ given, it defaults to the value of <code>&quot;pass&quot;</code>.</td></tr>
+</table>
 
-<p> <strong>Inputs</strong>
- </p><dl compact="compact">
-<dt> <var>x</var></dt>
-</dl>
-<p> Signal vector.
- </p></dd>
-<dt> <var>wname</var></dt>
-</dl>
-<p> Wavelet name.
- </p></dd>
-<dt> <var>Hp</var></dt>
-</dl>
-<p> Coefficients of low-pass decomposition <acronym>FIR</acronym> filter.
- </p></dd>
-<dt> <var>Gp</var></dt>
-</dl>
-<p> Coefficients of high-pass decomposition <acronym>FIR</acronym> filter.
- </p></dd>
-</dl>
+<p> With normalized ang. freq. targets 0 &lt; phi(1) &lt;  ... &lt; phi(n) &lt; pi radians
+</p>
+ <table><tr><td>&nbsp;</td><td><pre class="example"> for Pass == 'pass', the target multiband magnitude will be:
+       --------       ----------        -----------...
+      /        \     /          \      /            .
+ 0   phi(1) phi(2)  phi(3)   phi(4)   phi(5)   (phi(6))    pi
 
-<p> <strong>Outputs</strong>
- </p><dl compact="compact">
-<dt> <var>u</var></dt>
-</dl>
-<p> Signal vector of average, approximation.
- </p></dd>
-<dt> <var>v</var></dt>
-</dl>
-<p> Signal vector of difference, detail.
- </p></dd>
-</dl>
+ for Pass == 'stop', the target multiband magnitude will be:
+ -------      ---------        ----------...
+        \    /         \      /           .
+ 0   phi(1) phi(2)  phi(3)   phi(4)  (phi(5))              pi
+ </pre></td></tr></table>
+
+<p> Example of use:
+ [B, A] = butter(6, 0.5);
+ [Num, Den] = iirlp2mb(B, A, 0.5, [.2 .4 .6 .8]);
+</p>
 
 <p><strong>Source Code: </strong>
-  <a href="https://github.com/pr0m1th3as/signal/tree/main/inst/dwt.m">dwt</a>
+  <a href="https://github.com/pr0m1th3as/signal/tree/main/inst/iirlp2mb.m">iirlp2mb</a>
 </div>
 
 

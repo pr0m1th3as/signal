@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signal Processing: xcorr</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <style>
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=index.html>
+              <img src="assets/signal.png" alt="signal" class="d-inline-block align-top" width="25" height="25">
+              Signal Processing
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#Correlation and Convolution">
+                    <i class="fas fa-list-alt"></i>
+                    Correlation and Convolution
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-5 mb-2 mb-sm-0">
+              <h3 class="d-inline-block mr-2">
+              Function&nbsp;Reference: <b><code>xcorr</code></b>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+<dl>
+<dt><u>Function File:</u> [<var>R</var>, <var>lag</var>] = <b>xcorr</b><i> ( <var>X</var> )</i></dt>
+<dt><u>Function File:</u> &hellip; = <b>xcorr</b><i> ( <var>X</var>, <var>Y</var> )</i></dt>
+<dt><u>Function File:</u> &hellip; = <b>xcorr</b><i> ( &hellip;, <var>maxlag</var>)</i></dt>
+<dt><u>Function File:</u> &hellip; = <b>xcorr</b><i> ( &hellip;, <var>scale</var>)</i></dt>
+</dl>
+<p> Estimates the cross-correlation.
+</p>
+<div class="ms-5">
+<p> Estimate the cross correlation R_xy(k) of vector arguments <var>X</var> and <var>Y</var>
+ or, if <var>Y</var> is omitted, estimate autocorrelation R_xx(k) of vector <var>X</var>,
+ for a range of lags k specified by  argument &quot;maxlag&quot;.  If <var>X</var> is a
+ matrix, each column of <var>X</var> is correlated with itself and every other
+ column.
+</p>
+<p> The cross-correlation estimate between vectors &quot;x&quot; and &quot;y&quot; (of
+ length N) for lag &quot;k&quot; is given by
+</p>
+<p> $$ R_{xy}(k) = \sum_{i=1}^{N} x_{i+k} \conj(y_i) $$
+</p> 
+<p> where data not provided (for example x(-1), y(N+1)) is zero. Note the
+ definition of cross-correlation given above. To compute a
+ cross-correlation consistent with the field of statistics, see <code>xcov</code>.
+</p>
+<p> <strong>ARGUMENTS</strong>
+ </p><dl compact="compact">
+<dt> <var>X</var></dt>
+</dl>
+<p> [non-empty; real or complex; vector or matrix] data
+</p>
+ </dd>
+<dt> <var>Y</var></dt>
+</dl>
+<p> [real or complex vector] data
+</p>
+<p> If <var>X</var> is a matrix (not a vector), <var>Y</var> must be omitted.
+ <var>Y</var> may be omitted if <var>X</var> is a vector; in this case xcorr
+ estimates the autocorrelation of <var>X</var>.
+</p>
+ </dd>
+<dt> <var>maxlag</var></dt>
+</dl>
+<p> [integer scalar] maximum correlation lag
+ If omitted, the default value is N-1, where N is the
+ greater of the lengths of <var>X</var> and <var>Y</var> or, if <var>X</var> is a matrix,
+ the number of rows in <var>X</var>.
+</p>
+ </dd>
+<dt> <var>scale</var></dt>
+</dl>
+<p> [character string] specifies the type of scaling applied
+ to the correlation vector (or matrix). is one of:
+ </p><dl compact="compact">
+<dt> &lsquo;<samp>none</samp>&rsquo;</dt>
+</dl>
+<p> return the unscaled correlation, R,
+ </p></dd>
+<dt> &lsquo;<samp>biased</samp>&rsquo;</dt>
+</dl>
+<p> return the biased average, R/N,
+ </p></dd>
+<dt> &lsquo;<samp>unbiased</samp>&rsquo;</dt>
+</dl>
+<p> return the unbiased average, R(k)/(N-|k|),
+ </p></dd>
+<dt> &lsquo;<samp>coeff or normalized</samp>&rsquo;</dt>
+</dl>
+<p> return the correlation coefficient, R/(rms(x).rms(y)),
+ where &quot;k&quot; is the lag, and &quot;N&quot; is the length of <var>X</var>.
+ If omitted, the default value is &quot;none&quot;.
+ If <var>Y</var> is supplied but does not have the same length as <var>X</var>,
+ scale must be &quot;none&quot;.
+ </p></dd>
+</dl>
+</dd>
+</dl>
+
+<p> <strong>RETURNED VARIABLES</strong>
+ </p><dl compact="compact">
+<dt> <var>R</var></dt>
+</dl>
+<p> array of correlation estimates
+ </p></dd>
+<dt> <var>lag</var></dt>
+</dl>
+<p> row vector of correlation lags [-maxlag:maxlag]
+ </p></dd>
+</dl>
+
+<p> The array of correlation estimates has one of the following forms:
+ (1) Cross-correlation estimate if <var>X</var> and <var>Y</var> are vectors.
+</p>
+<p> (2) Autocorrelation estimate if is a vector and <var>Y</var> is omitted.
+</p>
+<p> (3) If <var>X</var> is a matrix, R is an matrix containing the cross-correlation
+ estimate of each column with every other column. Lag varies with the first
+ index so that R has 2*maxlag+1 rows and P^2 columns where P is the number of
+ columns in <var>X</var>.
+</p>
+<p> If Rij(k) is the correlation between columns i and j of <var>X</var>
+</p>
+<p> <code>R(k+maxlag+1,P*(i-1)+j) == Rij(k)</code>
+</p>
+<p> for lag k in [-maxlag:maxlag], or
+</p>
+<p> <code>R(:,P*(i-1)+j) == xcorr(X(:,i),X(:,j))</code>.
+</p>
+<p> <code>reshape(R(k,:),P,P)</code> is the cross-correlation matrix for <code>X(k,:)</code>.
+</p>
+<p> <strong>See also: </strong>
+  <a href="xcov.html">xcov</a>
+</p>
+<p><strong>Source Code: </strong>
+  <a href="https://github.com/pr0m1th3as/signal/tree/main/inst/xcorr.m">xcorr</a>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
