@@ -20,7 +20,7 @@
 ##
 ## The decibel value of @var{x} is defined as
 ## @tex
-## $d = 10 * \log_{10} (x)$.
+## $$ d = 10 * \log_{10} (x) $$
 ## @end tex
 ## @ifnottex
 ## @var{d} = @code{10 * log10 (x)}.

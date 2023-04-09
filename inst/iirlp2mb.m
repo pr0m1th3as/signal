@@ -14,21 +14,37 @@
 ## along with this program; see the file COPYING. If not, see
 ## <https://www.gnu.org/licenses/>.
 
+## -*- texinfo -*-
+## @deftypefn  {Function File} {[@var{Num}, @var{Den}, @var{AllpassNum}, @var{AllpassDen}] =} iirlp2mb (@var{B}, @var{A}, @var{Wo}, @var{Wt})
+## @deftypefnx {Function File} {[@var{Num}, @var{Den}, @var{AllpassNum}, @var{AllpassDen}] =} iirlp2mb (@var{B}, @var{A}, @var{Wo}, @var{Wt}, @var{Pass})
 ## IIR Low Pass Filter to Multiband Filter Transformation
 ##
-## [Num,Den,AllpassNum,AllpassDen] = iirlp2mb(B,A,Wo,Wt)
-## [Num,Den,AllpassNum,AllpassDen] = iirlp2mb(B,A,Wo,Wt,Pass)
-##
-## Num,Den:               numerator,denominator of the transformed filter
-## AllpassNum,AllpassDen: numerator,denominator of allpass transform,
-## B,A:                   numerator,denominator of prototype low pass filter
-## Wo:                    normalized_angular_frequency/pi to be transformed
-## Wt:                    [phi=normalized_angular_frequencies]/pi target vector
-## Pass:                  This parameter may have values 'pass' or 'stop'.  If
-##                        not given, it defaults to the value of 'pass'.
+## @multitable @columnfractions 0.3 0.02 0.68
+## @headitem Input Arguments @tab @tab Description
+## @item
+## @var{Num}, @var{Den} @tab @tab
+## numerator,denominator of the transformed filter
+## @item
+## @var{AllpassNum}, @var{AllpassDen} @tab @tab
+## numerator,denominator of allpass transform
+## @item
+## @var{B}, @var{A} @tab @tab
+## numerator,denominator of prototype low pass filter
+## @item
+## @var{Wo} @tab @tab
+## normalized_angular_frequency/pi to be transformed
+## @item
+## @var{Wt} @tab @tab
+## [phi=normalized_angular_frequencies]/pi target vector
+## @item
+## @var{Pass} @tab @tab
+## This parameter may have values '@qcode{"pass"} or @qcode{"stop"}.  If not
+## given, it defaults to the value of @qcode{"pass"}.
+## @end multitable
 ##
 ## With normalized ang. freq. targets 0 < phi(1) <  ... < phi(n) < pi radians
 ##
+## @example
 ## for Pass == 'pass', the target multiband magnitude will be:
 ##       --------       ----------        -----------...
 ##      /        \     /          \      /            .
@@ -38,10 +54,13 @@
 ## -------      ---------        ----------...
 ##        \    /         \      /           .
 ## 0   phi(1) phi(2)  phi(3)   phi(4)  (phi(5))              pi
+## @end example
 ##
 ## Example of use:
 ## [B, A] = butter(6, 0.5);
 ## [Num, Den] = iirlp2mb(B, A, 0.5, [.2 .4 .6 .8]);
+##
+## @end deftypefn
 
 function [Num,Den,AllpassNum,AllpassDen] = iirlp2mb(varargin)
 

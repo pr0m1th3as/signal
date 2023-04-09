@@ -14,10 +14,13 @@
 ## along with this program; see the file COPYING. If not, see
 ## <https://www.gnu.org/licenses/>.
 
-## b = polystab(a)
+## -*- texinfo -*-
+## @deftypefn {Function File} {@var{b} =} polystab (@var{a})
 ##
 ## Stabilize the polynomial transfer function by replacing all roots
 ## outside the unit circle with their reflection inside the unit circle.
+##
+## @end deftypefn
 
 function b = polystab(a)
 

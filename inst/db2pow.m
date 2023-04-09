@@ -20,7 +20,7 @@
 ##
 ## The power of @var{x} is defined as
 ## @tex
-## $p = 10^{x/10}$.
+## $$ p = 10^{x/10} $$
 ## @end tex
 ## @ifnottex
 ## @var{p} = @code{10 ^ (x/10)}.
